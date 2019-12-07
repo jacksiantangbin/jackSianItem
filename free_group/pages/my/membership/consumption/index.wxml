@@ -1,0 +1,14 @@
+<view class="navbar">
+  <view class="navbar-item" wx:for="{{cardList}}" wx:key="item" data-idx="{{index}}" bindtap="swichNav" data-card-account-id="{{item.cardAccountId}}">
+    <text class="navbar-text {{currentNavbar==index ? 'active' : ''}}">{{item.cardlevelName}}</text>
+  </view>
+</view>
+<view class='content'>
+  <view class='section'  wx:for="{{consumeRecords}}" wx:key="item">
+    <view class='bottom'>
+      <view class='bottom_left'>{{item.billDate}}</view>
+      <view class='row1_left'>{{item.consumeDetail}}</view>
+      <view class='row1_right'>￥{{item.totalAmount}}</view>
+    </view>
+  </view>
+</view>

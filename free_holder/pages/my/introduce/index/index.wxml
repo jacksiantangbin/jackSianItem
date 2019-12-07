@@ -1,0 +1,12 @@
+<view class='content'>
+  <view class='section'>
+    <view class='one'  bindtap='opinion'>
+      <text>意见与反馈</text>
+      <text>></text>
+    </view>
+    <view class='one' bindtap='about_us'>
+      <text>关于我们</text>
+      <text>></text>
+    </view>
+  </view>
+</view>

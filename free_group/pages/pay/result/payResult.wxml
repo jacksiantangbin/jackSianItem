@@ -1,0 +1,33 @@
+<wxs module="filters" src="../../../utils/util.wxs"></wxs>
+<view class='content'>
+  <view class='section'>
+    <view class='row1'>
+      支付金额
+      <text class='item_price'>￥{{lastPrice}}</text>
+      <!-- <text class='item_price' wx:if='{{lastPrice == 0}}'>￥{{lastPrice}}</text> -->
+    </view>
+    <view class='row2'>
+      拼团标题{{itemType}}
+      <view class='item_name'>{{title}}</view>
+      <view class='store_group4' wx:if='{{itemType == 2}}'>
+        日常团</view>
+    </view>
+    <view class='row3'>
+      订单号
+      <text class='order_num'>{{orderCode}}</text>
+    </view>
+    <view class='result'>
+      <image src='{{resultImg}}' mode="aspectFill"></image>
+      <view class='txt'>恭喜您，支付成功</view>
+    </view>
+    <view class='btn'>
+      <button class='left_btn' bindtap='navigateToBespeak'>查看订单</button>
+      <!-- <button class='right_btn'>重新支付</button>  -->
+      <button class='right_btn' id="shareBtn" open-type="share" type="primary" hover-class="other-button-hover">分享给好友</button>
+    </view>
+  </view>
+  <view>
+    <!-- <view class='footer' wx:if="{{activityNum == 0 || bespeakStartTime == 0 || itemType == 3 || errno == 0}}" bindtap='bespokedetail'>进行预约</view> -->
+    <!-- <view class='footer' bindtap='bespokedetail'>进行预约</view> -->
+  </view>
+</view>

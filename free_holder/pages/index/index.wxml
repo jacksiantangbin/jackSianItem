@@ -1,0 +1,142 @@
+<wxs module="filters" src="../../utils/util.wxs"></wxs>
+<image wx:if='{{storeShow == 1}}' class="ac_image" src='{{gr_small}}' mode='aspectFill'></image>
+<view wx:elif='{{storeShow == 2}}'>
+  <view class="page-loading">
+    <view class='img'>
+      <image class='loading' src='{{dialog}}'></image>
+    </view>
+    <view class='word'>暂无门店信息~</view>
+  </view>
+</view>
+<view class='content' wx:else>
+  <scroll-view scroll-y='true' class='scroll-view_conatiner' wx:if='{{tentanStore}}'>
+    <!-- 没有拼团项目--------------------------------------------------------------------------- -->
+    <view class='sections' wx:if='{{num < 1}}'>
+      <view class='top' wx:if='{{tenantLength > 1}}'>
+        <view class='top_top'>
+          <view class="top_box" catchtap="storeType">
+            <image class="tanentType" src="{{tanentType}}" mode="aspectFill"></image>
+            <text class="stt_txt">{{tenantName}}</text>
+          </view>
+        </view>
+      </view>
+      <!-- <view class='section'>
+        <view class='content_center'>
+          <view class='left'>
+            <image src='{{storeList.storeCoverageImage}}' class='coverimg' mode='aspectFill'></image>
+          </view>
+          <view class='right'>
+            <view class='top_one'>
+              <view class='title'>{{storeList.storeName}}</view>
+            </view>
+            <view class='num'>
+              <view class='num_left' wx:if='{{storeList.distance < 1000}}'>
+                {{storeList.distance}} m
+              </view>
+              <view class='num_left' wx:if='{{storeList.distance > 999}}'>
+                {{filters.toNumber(storeList.distance / 1000)}} km
+              </view>
+            </view>
+          </view>
+        </view>
+      </view> -->
+      <view class="top_swp">
+        <swiper class="swiper-block" previous-margin="80rpx" next-margin="80rpx" current="{{swiperIndex}}" bindchange="swiperChange">
+          <block wx:for="{{storeList}}" wx:key='' wx:index="{{index}}">
+            <!-- 多个 -->
+            <swiper-item class="swiper-item" wx:if='{{storeList.length > 1}}' item-id='{{item.orgId}}'>
+              <view class="slide-image {{swiperIndex == index ? 'active' : ''}}">
+                <view class="ac_st_center">
+                  <image src="{{item.storeCoverageImage}}" class="ac_st_img" mode="aspectFill"></image>
+                  <view class="ac_st_name">
+                    <view class="ac_st_tit">{{item.storeName}}</view>
+                  </view>
+                </view>
+              </view>
+            </swiper-item>
+            <!-- 一个 -->
+            <swiper-item class="swiper-item" wx:if='{{storeList.length < 2}}' item-id='{{item.orgId}}'>
+              <view class="slide-image2 {{swiperIndex == index ? 'active' : ''}}">
+                <view class="ac_st_center2">
+                  <image src="{{item.storeCoverageImage}}" class="ac_st_img" mode="aspectFill"></image>
+                  <view class="ac_st_name">{{item.storeName}}</view>
+                </view>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+      <view class='aaa' bindtap='getLocation' data-address='{{tentanStore.storeAddress}}' data-lat='{{tentanStore.lat}}' data-lon='{{tentanStore.lon}}' data-name='{{tentanStore.storeName}}'>
+        <view class='address_no'>
+          <icon class="iconfont icon-dingwei3"></icon>
+          <text class='ic_txt'>{{tentanStore.storeAddress}}</text>
+        </view>
+        <view class='more_ad'>
+          <view class="st_ad_mo">
+            <view wx:if='{{tentanStore.distance < 1000}}'>
+              {{tentanStore.distance}} m
+            </view>
+            <view wx:if='{{tentanStore.distance > 999}}'>
+              {{filters.toNumber(tentanStore.distance / 1000)}} km
+            </view>
+          </view>
+          <icon class="iconfont icon-youjiantou"></icon>
+        </view>
+      </view>
+      <view class='aaa' bindtap='telPhone' data-phone='{{tentanStore.stroeTelephone}}'>
+        <view class='address_no'>
+          <icon class="iconfont icon-dianhua"></icon>
+          <text class='ic_txt'>{{tentanStore.stroeTelephone}}</text>
+        </view>
+        <view class='more'>
+          <icon class="iconfont icon-youjiantou"></icon>
+        </view>
+      </view>
+      <view class='aaa'>
+        <view class='address_no'>
+          <icon class="iconfont icon-shijian1"></icon>
+          <text class='ic_txt'>{{tentanStore.businessStart}} ～ {{tentanStore.businessEnd}}</text>
+        </view>
+      </view>
+      <view class='bbb'>
+        <view class='address_no'>
+          <icon class="iconfont icon-riliriqi2"></icon>
+          <text class='ic_txt'>商户简介</text>
+        </view>
+      </view>
+      <view class='st_txt'>
+        {{tentanStore.storeRemark}}
+      </view>
+      <view class='top' wx:if='{{storeSetImageList.length > 0}}'>
+        <view class='top_top'>
+          <view class='nav'></view>店铺图片
+        </view>
+        <view class='picList' bindtap='picList' data-org-Id='{{tentanStore.orgId}}'>更多
+          <icon class="iconfont icon-youjiantou"></icon>
+        </view>
+      </view>
+      <view class='section_top' wx:if='{{storeSetImageList.length > 0}}'>
+        <image class='one_img' wx:for="{{storeSetImageList}}" wx:key='' src='{{item.imageUrl}}' data-Id='{{item.id}}' catchtap='previewImage2' data-url="{{item}}" mode='aspectFill' data-imagelist="{{storeSetImageList}}"></image>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+
+
+<view wx:if="{{isShow}}">
+  <!-- 微信授权登录弹窗 -->
+  <dialog id='dialog' title='登录提示' content='小程序需要您的授权才能提供更好的服务哦' confirmText='知道了' bind:confirmEvent='confirmEvent' bind:bindGetUserInfo='bindGetUserInfo'>
+  </dialog>
+</view>
+<!-- 组件获取基本信息 -->
+<view wx:if="{{showModal_logo}}">
+  <my_component_logo showModal='{{showModal_logo}}'></my_component_logo>
+</view>
+<!-- 股东福利 -->
+<view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal_holder}}"></view>
+<view class="modal-dialog" wx:if="{{showModal_holder}}">
+  <image src='{{redCover}}' mode='aspectFill' class='redCover' bindtap="holderDetail" data-activity-Id='{{activityId}}' data-holder-Id='{{holderId}}'></image>
+  <text class='redTxt'>{{activityName}}</text>
+  <image src='{{close}}' mode='aspectFill' class='redClose' data-activity-Id='{{activityId}}' data-holder-Id='{{holderId}}' bindtap="activity_hide" ></image>
+</view>

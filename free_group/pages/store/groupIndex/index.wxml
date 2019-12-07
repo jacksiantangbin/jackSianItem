@@ -1,0 +1,43 @@
+<wxs module="filters" src="../../../utils/util.wxs"></wxs>
+<view class='content'>
+  <scroll-view scroll-y='true' class='scroll-view_conatiner'>
+    <!-- 有拼团项目--------------------------------------------------------------------------- -->
+    <view class='sections' wx:if='{{storeItemList.length > 0}}'>
+      <view class='top_top'>
+        <view class='nav'></view>拼团进行时
+      </view>
+      <view class='st_item'>
+        <view class='st_list' wx:for='{{storeItemList}}' wx:key='' data-group-Id='{{item.groupId}}' bindtap='groupDetail'>
+          <image src='{{item.itemCoverageImage}}'></image>
+          <view class='st_title'>
+            {{item.groupTitle}}
+          </view>
+          <view class='st_price'>
+            <text class='st_group'>￥{{item.groupPrice}}</text>
+          </view>
+          <view class='st_num'>
+            <text class='st_go'>已购 {{item.groupCount}}</text>
+            <view class='ac_tab'>
+              <view class='ac_tab_left'>
+                {{item.personCount}}人团
+              </view>
+              <view class='ac_tab_right'>
+                去开团
+              </view>
+            </view>
+          </view>
+          <view class='store_activity'>
+            <view class='store_group' wx:if='{{item.groupType == 1}}'>
+              拉新团</view>
+            <view class='store_group2' wx:if='{{item.groupType == 4}}'>
+              阶梯团</view>
+            <view class='store_group3' wx:if='{{item.groupType == 3}}'>
+              免单团</view>
+            <view class='store_group4' wx:if='{{item.groupType == 2}}'>
+              日常团</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

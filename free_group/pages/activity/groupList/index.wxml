@@ -1,0 +1,110 @@
+<view class='content'>
+  <view class="st_top" wx:if='{{isMy}}'>
+    <view class="st_co"></view>我的团
+  </view>
+  <view class='section' wx:for='{{groupActivityList}}' wx:if='{{item.isSelf == 1}}' wx:key='{{item.groupActivityId}}' data-groupActivity-Id='{{item.groupActivityId}}' wx:for-index="idx">
+    <view class='center' bindtap='goactivityDetail' data-groupactivity-Id='{{item.groupActivityId}}'>
+      <!-- <view class='top'>
+        <text class='name'><text class='fqr'>发起人</text>{{item.creatorName}}</text>
+      </view> -->
+
+      <!-- （1）未成团时间未结束展示字段：还差几个人成团，距结束还有22时22分22	秒，展示按钮去参团；
+（2）已成团还可参团时间未结束展示字段：团成功可继续参团，距结束还有22时22分22秒，展示按钮去参团；
+（3）已成团还可继续参团 时间已结束：团成功 不展示时间 去参团按钮展示为已成团；
+（4）团成功 时间未结束展示字段：团成功 不展示时间 去参团按钮变为已成团：
+（5）团成功时间结束展示字段：团成功 不展示时间 去参团按钮变为已成团；
+（5）未成团，还可继续参团 时间已结束： 团不展示；
+（6）未成团，还可继续参团 时间未结束： 还差几个人成团，展示字段【进行中】
+（6）未成团时间结束，此团信息不展示； -->
+
+      <view class='bottom'>
+        <image src='{{item.creatorAvatarUrl}}' class='avtar' mode='aspectFill'></image>
+        <view class='top'>
+          <text class='name'><text class='fqr'>发起人</text>{{item.creatorName}}</text>
+        </view>
+        <view class="ls_center">
+          <text class='num' wx:if='{{item.leftTime > 0 && item.activityState != 1 && item.successOperate < 1}}'>还差<text class="per">{{personCount - item.personCount}}人</text>成团</text>
+          <text class='num' wx:if='{{item.leftTime < 1 && item.activityState != 1 && item.successOperate < 1}}'>团失败</text>
+          <text class='num' wx:if='{{item.leftTime < 1 && item.activityState == 1 && item.successOperate < 1}}'>团已成功</text>
+          <text class='num' wx:if='{{item.leftTime > 0 && item.activityState == 1 && item.successOperate < 1}}'>团已成功</text>
+          <text class='num' wx:if="{{item.leftTime < 1 && item.activityState == 1 && item.successOperate > 0}}">团已成功</text>
+          <text class='num' wx:if="{{item.leftTime > 0 && item.activityState == 1 && item.successOperate > 0}}">团成功可继续参团</text>
+
+          <text class='num' wx:if="{{item.leftTime < 1 && item.activityState != 1 && item.successOperate > 0}}">团失败</text>
+          <text class='num' wx:if="{{item.leftTime > 0 && item.activityState != 1 && item.successOperate > 0}}">还差<text class="per">{{personCount - item.personCount}}人</text>成团</text>
+          <!-- <view class='time' wx:if='{{item.leftTime > 0}}'>距离结束还有:
+            <text class='red'>{{countDownList[idx].hou}} ：{{countDownList[idx].min}} ：{{countDownList[idx].sec}}</text>
+          </view> -->
+        </view>
+
+        <!-- catchtap='payOrder_offered' -->
+        <view class='goGroup' data-end-Date='{{item.leftTime}}' data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState != 1 && item.leftTime > 0 &&item.successOperate < 1}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'>进行中</view>
+
+        <view class='goGroup' data-end-Date='{{item.leftTime}}' data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState == 1 && item.successOperate > 0 && item.leftTime > 0}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'>进行中</view>
+
+        <view class='goGroup' data-end-Date='{{item.leftTime}}' data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState != 1 && item.successOperate > 0 && item.leftTime > 0}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'>进行中</view>
+
+        <view class='goGroup2' data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState == 1 && item.successOperate > 0 && item.leftTime < 1}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'>已成团</view>
+
+        <view class='goGroup2' data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState == 1 && item.leftTime > 0 &&item.successOperate < 1}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'>已成团</view>
+
+
+        <view class='goGroup2' data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState == 1 && item.leftTime < 1 &&item.successOperate < 1}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'>已成团</view>
+
+      </view>
+    </view>
+  </view>
+  <view class="st_top" wx:if='{{noMy}}'>
+    <view class="st_co"></view>他人团
+  </view>
+  <view class='section' wx:for='{{groupActivityList}}' wx:if='{{item.isSelf == 0}}' wx:key='{{item.groupActivityId}}' data-groupActivity-Id='{{item.groupActivityId}}' wx:for-index="idx">
+    <view class='center' data-groupactivity-Id='{{item.groupActivityId}}'>
+      <!-- <view class='top'>
+        <text class='name'><text class='fqr'>发起人</text>{{item.creatorName}}</text>
+      </view> -->
+
+      <view class='bottom'>
+        <image src='{{item.creatorAvatarUrl}}' class='avtar' mode='aspectFill'></image>
+        <view class='top'>
+          <text class='name'><text class='fqr'>发起人</text>{{item.creatorName}}</text>
+        </view>
+        <view class="ls_center">
+          <text class='num' wx:if='{{item.leftTime > 0 && item.activityState != 1 &&item.successOperate < 1}}'>还差<text class="per">{{personCount - item.personCount}}人</text>成团</text>
+          <text class='num' wx:if='{{item.leftTime < 1 && item.activityState != 1 &&item.successOperate < 1}}'>团失败</text>
+          <text class='num' wx:if='{{item.leftTime < 1 && item.activityState == 1 &&item.successOperate < 1}}'>团已成功</text>
+          <text class='num' wx:if='{{item.leftTime > 0 && item.activityState == 1 &&item.successOperate < 1}}'>团已成功</text>
+          <text class='num' wx:if="{{item.leftTime < 1 && item.activityState == 1 && item.successOperate > 0}}">团已成功</text>
+          <text class='num' wx:if="{{item.leftTime > 0 && item.activityState == 1 &&item.successOperate > 0}}">团成功可继续参团</text>
+          <text class='num' wx:if="{{item.leftTime < 1 && item.activityState != 1 && item.successOperate > 0}}">团失败</text>
+          <text class='num' wx:if="{{item.leftTime > 0 && item.activityState != 1 && item.successOperate > 0}}">还差<text class="per">{{personCount - item.personCount}}人</text>成团</text>
+          <!-- <view class='time' wx:if='{{item.leftTime > 0}}'>距离结束还有:
+            <text class='red'>{{countDownList[idx].hou}} ：{{countDownList[idx].min}} ：{{countDownList[idx].sec}}</text>
+          </view> -->
+        </view>
+
+        <!-- catchtap='payOrder_offered' -->
+        <view class='goGroup' data-end-Date='{{item.leftTime}}' data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState != 1 && item.leftTime > 0 &&item.successOperate < 1}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'>进行中</view>
+
+        <view class='goGroup' data-end-Date='{{item.leftTime}}' data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState == 1 && item.successOperate > 0 && item.leftTime > 0}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'>进行中</view>
+
+        <view class='goGroup' data-end-Date='{{item.leftTime}}' data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState != 1 && item.successOperate > 0 && item.leftTime > 0}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'>进行中</view>
+
+        <view class='goGroup2' data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState == 1 && item.successOperate > 0 && item.leftTime < 1}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'>已成团</view>
+
+        <!-- <image src='{{yct}}' class="yct" data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState == 1 && item.successOperate > 0 && item.leftTime < 1}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'
+          mode='aspectFill'></image> -->
+
+        <view class='goGroup2' data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState == 1 && item.leftTime > 0 &&item.successOperate < 1}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'>已成团</view>
+
+        <!-- <image src='{{yct}}' class="yct" data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState == 1 && item.leftTime > 0 &&item.successOperate < 1}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'
+          mode='aspectFill'></image> -->
+
+        <view class='goGroup2' data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState == 1 && item.leftTime < 1 &&item.successOperate < 1}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'>已成团</view>
+
+        <!-- <image src='{{yct}}' class="yct" data-groupActivity-Id='{{item.groupActivityId}}' wx:if='{{item.activityState == 1 && item.leftTime < 1 &&item.successOperate < 1}}' data-activity-State='{{item.activityState}}' data-activityNum='{{personCount - item.personCount}}'
+          mode='aspectFill'></image> -->
+
+      </view>
+    </view>
+  </view>
+</view>

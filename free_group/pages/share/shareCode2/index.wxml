@@ -1,0 +1,7 @@
+<view class='box'>
+  <canvas style="width:100%;height:{{contentHeight}}px;margin:0 auto" canvas-id="myCanvas">
+    <!-- <button bindtap='saveShareImg'>保存图片</button>  bindlongpress="savePic"
+    <button bindtap='savePic'>预览并发送</button> -->
+  </canvas>
+  <view bindtap='saveShareImg' class='pic'>保存图片</view>
+</view>

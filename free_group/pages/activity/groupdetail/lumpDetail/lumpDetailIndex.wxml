@@ -1,0 +1,186 @@
+<wxs module="filters" src="../../../../utils/util.wxs"></wxs>
+<import src="../../../../wxParse/wxParse.wxml" />
+<view class='lump_content_detail'>
+  <view class='box'>
+    <view class='section'>
+      <view class='center' wx:key='{{groupActivity.groupActivityId}}' data-groupActivity-Id='{{groupActivity.groupActivityId}}'>
+        <view class='top'>
+          <text class='name'><text class='fqr'>发起人</text>{{groupActivity.creatorName}}</text>
+        </view>
+
+        <!-- （1）未成团时间未结束展示字段：还差几个人成团，距结束还有22时22分22秒，展示底部参团支付按钮； 
+    （2）未成团时间已结束展示字段：团失败，距结束还有00时00分00秒，底部标签栏的按钮变为通栏字段展示为【此团已结束】UI设计通栏； 
+    （3）已成团还可参团 时间未结束展示字段：团成功可继续参团，距结束还有22时22分22秒，展示底部参团支付按钮； 
+    （ 4）已成团还可参团 时间已结束展示字段：团已成功，距结束还有00时00分00秒，底部标签栏的按钮变为通栏字段展示为【此团已结束】UI设计通栏； 
+    （5）团成功时间结束展示字段：团已成功，距结束还有00时00分00秒，底部标签栏的按钮变为通栏字段展示为【此团已结束】UI设计通栏； 
+    （6）团成功时间未结束展示字段：团已成功，距结束还有00时00分00秒，底部标签栏的按钮变为通栏字段展示为【此团已结束】UI设计通栏； -->
+
+        <view class='bottom'>
+          <image src='{{groupActivity.creatorAvatarUrl}}' class='avtar' mode='aspectFill'></image>
+          <view class="ct_bo">
+            <text class='num' wx:if='{{groupActivity.leftTime > 0 && groupActivity.activityState != 1 && group.successOperate < 1}}'>还差<text class="per">{{group.personCount - groupActivity.personCount}}人</text>成团</text>
+            <text class='num' wx:if='{{groupActivity.leftTime < 1 && groupActivity.activityState != 1 && group.successOperate < 1}}'>团失败</text>
+            <text class='num' wx:if='{{groupActivity.leftTime < 1 && groupActivity.activityState == 1 && group.successOperate < 1}}'>团已成功</text>
+            <text class='num' wx:if='{{groupActivity.leftTime > 0 && groupActivity.activityState == 1 && group.successOperate < 1}}'>团已成功</text>
+            <text class='num' wx:if='{{groupActivity.leftTime < 1 && groupActivity.activityState == 1 && group.successOperate > 0}}'>团已成功</text>
+            <text class='num' wx:if='{{groupActivity.leftTime > 0 && groupActivity.activityState == 1 && group.successOperate > 0}}'>团成功可继续参团</text>
+            <text class='num' wx:if="{{groupActivity.leftTime < 1 && groupActivity.activityState != 1 && group.successOperate > 0}}">团失败</text>
+            <text class='num' wx:if="{{groupActivity.leftTime > 0 && groupActivity.activityState != 1 && group.successOperate > 0}}">还差<text class="per">{{group.personCount - groupActivity.personCount}}人</text>成团</text>
+
+            <view class='time' wx:if='{{groupTime > 999}}'>
+              距离结束还剩：
+              <text class="red">{{hour}}:{{min}}:{{sec}}</text>
+            </view>
+            <view class='time' wx:if='{{groupTime < 1000}}'>
+              距离结束还剩：
+              <text class="red">00 ：00 ：00</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class='introduce'>
+        <view class='in_top'>
+          <text class='in_title'>{{group.groupTitle}}</text>
+        </view>
+        <view class='in_bottom'>
+          <view class='in_price'>
+            <!-- <view class='store_group3'>
+              <image src='{{yellow_fire}}' class='fire'></image>
+              免单团
+            </view> -->
+            <view class='day' wx:if='{{group.groupType == 2}}'>日常团</view>
+            <text class='p'>￥{{group.groupPrice}}</text>
+            <!-- <text class='bb'>{{group.itemPrice}}</text> -->
+          </view>
+          <view class="left_left">
+            <view class='share2' catchtap="myOrder">
+              <icon class="iconfont icon-wo"></icon>
+            </view>
+            <view class='share' catchtap='shareGroup'>
+              <icon class="iconfont icon-zhuanfa2"></icon>
+            </view>
+            <view class='share3' catchtap='ruleGroup'>
+              <icon class="iconfont icon-gantanhao1"></icon>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="nav"></view>
+    <view class="st_se">
+      <view class="st_top">
+        <view class="st_co"></view>适用门店
+      </view>
+      <view class='st_st'>
+        <view class="st_le" bindtap='getLocation' data-address='{{storeDetail.address}}' data-lat='{{storeDetail.lat}}' data-lon='{{storeDetail.lon}}' data-name='{{storeDetail.orgName}}'>
+          <view class='top_store'>
+            <view class='flex'>
+              <view class='sd'>
+                <icon class="iconfont icon-dianpu1"></icon>
+              </view>
+              <text class='store_names'>{{storeDetail.orgName}}</text>
+            </view>
+          </view>
+          <view class='top_store'>
+            <view class='flex'>
+              <view class='sd'>
+                <icon class="iconfont icon-dingwei3"></icon>
+              </view>
+              <text class='store_names' wx:if='{{storeDetail.address}}'>{{storeDetail.address}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="st_rg" catchtap='telPhone' data-phone='{{storeDetail.telephone}}'>
+          <icon class="iconfont icon-dianhua1"></icon>
+        </view>
+      </view>
+    </view>
+    <!-- <view class='activityStore'>
+      <view class='lists_top'>
+        <text class='lists_left'>适用门店</text>
+        <text class='lists_right'>(上下滑动查看更多，点击查看门店详情)</text>
+      </view>
+      <view class='out'>
+        <scroll-view scroll-y='true' class='lists_bottom' bindtap='groupStoreDetail' wx:for='{{storeList}}' wx:key='{{item.orgId}}' data-org-Id='{{item.orgId}}'>
+          <view class='store1'>{{item.storeName}}</view>
+        </scroll-view>
+      </view>
+    </view> -->
+    <view class='item_container_detail'>
+      <view class='lump_top'>
+        <view class='navTab'></view>项目介绍</view>
+      <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+    </view>
+    <view class='description' wx:if='{{group.groupRule != null}}'>
+      <view class='lump_top'>
+        <view class='navTab'></view>拼团规则</view>
+      <view class='lists_section'>
+        <view class='one'>{{group.groupRule}}</view>
+      </view>
+    </view>
+  </view>
+  <view class='lumpFooter'>
+    <view class='footer_left' wx:if='{{groupActivity.activityState != 1 && groupActivity.leftTime > 0 && group.successOperate < 1}}'>
+      ￥{{group.groupPrice}}
+    </view>
+    <view class='footer_left' wx:if='{{groupActivity.activityState == 1 && groupActivity.leftTime > 0 && group.successOperate > 0}}'>
+      ￥{{group.groupPrice}}
+    </view>
+     <view class='footer_left' wx:if='{{groupActivity.activityState != 1 && groupActivity.leftTime > 0 && group.successOperate > 0}}'>
+      ￥{{group.groupPrice}}
+    </view>
+
+    <!-- （1）未成团时间未结束展示字段：还差几个人成团，距结束还有22时22分22秒，展示底部参团支付按钮； 
+    （2）未成团时间已结束展示字段：团失败，距结束还有00时00分00秒，底部标签栏的按钮变为通栏字段展示为【此团已结束】UI设计通栏； 
+    （3）已成团还可参团 时间未结束展示字段：团成功可继续参团，距结束还有22时22分22秒，展示底部参团支付按钮； 
+    （ 4）已成团还可参团 时间已结束展示字段：团已成功，距结束还有00时00分00秒，底部标签栏的按钮变为通栏字段展示为【此团已结束】UI设计通栏； 
+    （5）团成功时间结束展示字段：团已成功，距结束还有00时00分00秒，底部标签栏的按钮变为通栏字段展示为【此团已结束】UI设计通栏； 
+    （6）团成功时间未结束展示字段：团已成功，距结束还有00时00分00秒，底部标签栏的按钮变为通栏字段展示为【此团已结束】UI设计通栏； -->
+
+    <view class='footer_right' bindtap='groupPay' data-group-Id='{{group.groupId}}' data-groupactivity-Id='{{groupActivity.groupActivityId}}' data-activity-State='{{groupActivity.activityState}}' data-end-Date='{{groupTime}}' wx:if='{{groupActivity.activityState != 1 && groupActivity.leftTime > 0 && group.successOperate < 1}}'>参团支付</view>
+
+    <view class='footer_right' bindtap='groupPay' data-group-Id='{{group.groupId}}' data-groupactivity-Id='{{groupActivity.groupActivityId}}' data-activity-State='{{groupActivity.activityState}}' data-end-Date='{{groupTime}}' wx:if='{{groupActivity.activityState == 1 && groupActivity.leftTime > 0 && group.successOperate > 0}}'>参团支付</view>
+
+    <view class='footer_right' bindtap='groupPay' data-group-Id='{{group.groupId}}' data-groupactivity-Id='{{groupActivity.groupActivityId}}' data-activity-State='{{groupActivity.activityState}}' data-end-Date='{{groupTime}}' wx:if='{{groupActivity.activityState != 1 && groupActivity.leftTime > 0 && group.successOperate > 0}}'>参团支付</view>
+
+    <!-- bindtap='groupPay' -->
+    <view class='footer_right' data-group-Id='{{group.groupId}}' data-groupactivity-Id='{{groupActivity.groupActivityId}}' data-activity-State='{{groupActivity.activityState}}' data-end-Date='{{groupTime}}' wx:if='{{groupActivity.activityState != 1 && groupActivity.leftTime < 1 && group.successOperate < 1}}'>此团已结束</view>
+    <!-- bindtap='groupPay' -->
+    <view class='footer_right' data-group-Id='{{group.groupId}}' data-groupactivity-Id='{{groupActivity.groupActivityId}}' data-activity-State='{{groupActivity.activityState}}' data-end-Date='{{groupTime}}' wx:if='{{groupActivity.activityState == 1 && groupActivity.leftTime < 1 && group.successOperate > 0}}'>此团已结束</view>
+
+    <view class='footer_right' data-group-Id='{{group.groupId}}' data-groupactivity-Id='{{groupActivity.groupActivityId}}' data-activity-State='{{groupActivity.activityState}}' data-end-Date='{{groupTime}}' wx:if='{{groupActivity.activityState != 1 && groupActivity.leftTime < 1 && group.successOperate > 0}}'>此团已结束</view>
+
+    <!-- catchtap='groupPay' -->
+    <view class='footer_right' data-group-Id='{{group.groupId}}' data-groupActivity-Id='{{groupActivity.groupActivityId}}' wx:if='{{groupActivity.activityState == 1 && groupActivity.leftTime < 1 && group.successOperate < 1}}' data-end-Date='{{groupTime}}'
+      data-activity-State='{{groupActivity.activityState}}'>此团已结束</view>
+    <!-- bindtap='grouptime' -->
+    <view class='footer_right' data-group-Id='{{group.groupId}}' data-groupactivity-Id='{{groupActivity.groupActivityId}}' data-activity-State='{{groupActivity.activityState}}' data-end-Date='{{groupTime}}' wx:if='{{groupActivity.activityState == 1 && groupActivity.leftTime > 0 && group.successOperate < 1}}'>此团已结束</view>
+
+  </view>
+</view>
+
+
+<!--弹窗-->
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog" wx:if="{{showModal}}">
+  <view class='shareCenter'>
+    <view class='sharePage' bindtap='sharePage' data-group-Title='{{group.groupTitle}}' data-group-Price='{{group.groupPrice}}' data-group-Img='{{group.coverImage}}'>
+      <image class='img1' src='{{sharePage}}'></image>
+      <text>生成分享海报</text>
+    </view>
+    <button open-type="share" class='shareWx'>
+      <image class='img2' src='{{shareWx}}'></image>
+      <text class='wxTxt'>分享给好友</text>
+    </button>
+  </view>
+</view>
+
+<view wx:if="{{showModal_rule}}">
+  <rule showModal='{{showModal_rule}}'></rule>
+</view>
+
+<!-- 组件获取基本信息 -->
+<view wx:if="{{showModal_logo}}">
+  <my_component_logo showModal='{{showModal_logo}}'></my_component_logo>
+</view>

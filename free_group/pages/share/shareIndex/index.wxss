@@ -1,0 +1,47 @@
+page {
+  width: 100%;
+  height: 100%;
+  background: #353535;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  /* background: #353535; */
+  z-index: 1000;
+}
+contents{
+    width: 100%;
+  height: 100%;
+  background: #353535;
+  z-index: 1000;
+  overflow: hidden;
+}
+.canvas {
+  background: -webkit-linear-gradient(top, #5a5a5a, #353535);
+}
+
+.pic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 350rpx;
+  font-size: 32rpx;
+  border-radius: 80rpx;
+  height: 7%;
+  color: #353535;
+  background: -webkit-linear-gradient(left, #eedaad, #ddc378);
+  margin: 0 auto;
+  position: fixed;
+  left: 200rpx;
+  bottom: 30rpx;
+}
+
+.canvas_my {
+  height: 300rpx;
+  width: 300rpx;
+  margin: 0 auto; /*水平居中*/
+  position: relative;
+  top:-50%; /*偏移*/
+  margin-top: -150rpx;
+}

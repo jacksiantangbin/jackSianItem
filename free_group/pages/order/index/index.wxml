@@ -1,0 +1,102 @@
+<!-- 全部 -->
+<view class="latest-item-container">
+  <view wx:if="{{total1 < 1 }}">
+    <view class="page-loading">
+      <view class='img'>
+        <image class='loading' src='{{dialog}}' mode="aspectFit"></image>
+      </view>
+      <view class='word'>暂时没有订单哦~</view>
+    </view>
+  </view>
+  <view class='bigBox' wx:else='{{total1 >= 1}}'>
+    <scroll-view class='order_content' scroll-y style='height:100%;' bindscrolltolower='bindScroll' scroll-top="{{scrollTop}}">
+      <view class='order_section' bindtap='sumDetail' wx:for="{{orderList}}"  wx:for-index="idx" wx:key="key" data-org-Id='{{item.orgId}}' data-order-Id='{{item.orderId}}' data-order-Source='{{item.orderSource}}' data-order-State='{{item.orderState}}' wx:if='{{item.orderSource == 2}}'
+        data-group-Id='{{item.groupId}}'>
+        <view class='top_one'>
+          <view class='top'>
+            <text class='text1' wx:if='{{item.groupType == 1}}'>拉新团</text>
+            <text class='text2' wx:if='{{item.groupType == 2}}'>日常团</text>
+            <text class='text3' wx:if='{{item.groupActivityState == 1 && item.orderState == 2}}'>已成团</text>
+            <text class='text4' wx:if='{{item.groupActivityState != 1 && item.orderState == 2}}'>待成团</text>
+            <!-- <text class='od_time' wx:if='{{item.leftTime > 0}}'>距离结束还有:
+              <text class='red'>{{countDownList[idx].hou}} ：{{countDownList[idx].min}} ：{{countDownList[idx].sec}}</text>
+            </text> -->
+            <!-- <text class='od_time' wx:if='{{item.remainTime > 0}}'>倒计时：<text class='red'>{{countDownList[idx].hou}} ：{{countDownList[idx].min}} ：{{countDownList[idx].sec}}</text>
+            </text> -->
+            
+            <text wx:if='{{item.orderState == 1 || item.orderState == 0}}'>待支付</text>
+            <text wx:if='{{item.orderState == 2}}'>待核销</text>
+            <text wx:if='{{item.orderState == 10}}'>已完成</text>
+            <text wx:if='{{item.orderState == 6}}'>退款中</text>
+            <text wx:if='{{item.orderState == 8}}'>退款失败</text>
+            <text wx:if='{{item.orderState == 7}}'>已退款</text>
+            <text wx:if='{{item.orderState == 9}}'>已取消</text>
+          </view>
+        </view>
+        <view class='pin' wx:if='{{item.isGroup == 1}}'>拼</view>
+        <view class='bottom'>
+          <view class='bottom_left'>
+            <image src='{{item.itemCoverageImage}}' mode="aspectFill"></image>
+          </view>
+          <view class='bottom_right'>
+            <view class='name'>{{item.groupTitle}}</view>
+            <view class='store'>
+              <text>适用门店：</text>{{item.storeNames}}
+            </view>
+            <view class='price'>￥{{item.groupPrice}}</view>
+            <view class='gopaid' data-index='{{index_group}}' catchtap='go_groupPay' wx:if='{{item.orderState == 1 || item.orderState == 0}}' data-order-Id='{{item.orderId}}' data-order-Source='{{item.orderSource}}' data-group-Id='{{item.groupId}}'>去支付</view>
+            <view class='gopaid' catchtap='my_bespokedetail' data-order-Id='{{item.orderId}}' wx:if='{{item.orderState == 2}}' data-group-State="{{item.groupActivityState}}">去核销</view>
+            <view class='gopaid' catchtap='order_de' data-order-Id='{{item.orderId}}' wx:if='{{item.orderState == 9}}' data-group-State="{{item.orderState}}">删除订单</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+<!--弹窗-->
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog" wx:if="{{showModal}}">
+  <view class="modal-title">是否核销此订单？</view>
+  <view class="modal-footer">
+    <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+    <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+  </view>
+</view>
+
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal_de}}"></view>
+<view class="modal-dialog" wx:if="{{showModal_de}}">
+  <view class="modal-title">是否删除此订单？</view>
+  <view class="modal-footer">
+    <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+    <view class="btn-confirm" bindtap="onConfirm_de" data-status="confirm">确定</view>
+  </view>
+</view>
+
+<!-- <view bindtap='hide' class="Zhezhao  {{isTrue?'isShow':'isHide'}}">
+  <view class='ZhezhaoContent'>
+    <image src='{{success}}' mode="aspectFill"></image>
+    <text class='txt'>取消成功</text>
+    <text class='txt2'>在我的预约 - 待预约中可重新申请</text>
+  </view>
+</view> -->
+
+<!--弹窗-->
+<!-- <view class="modal-mask" bindtap="pay_group_hideModal" catchtouchmove="pay_group_preventTouchMove" wx:if="{{pay_group_showModal}}"></view>
+<view class="modal-dialog" wx:if="{{pay_group_showModal}}">
+  <view class="modal-title-other">此拼团活动已下线</view>
+  <view class="modal-center">为您推荐更多拼团活动</view>
+  <view class="modal-footer-other">
+    <view class="btn-confirm-other" bindtap="pay_group_onConfirm" data-status="confirm">去看看</view>
+  </view>
+</view> -->
+
+
+<!-- <view class="modal-mask" bindtap="pay_activity_hideModal" catchtouchmove="pay_activity_preventTouchMove" wx:if="{{pay_activity_showModal}}"></view>
+<view class="modal-dialog" wx:if="{{pay_activity_showModal}}">
+  <view class="modal-title-other">此促销活动已下线</view>
+  <view class="modal-center">为您推荐更多促销活动</view>
+  <view class="modal-footer-other">
+    <view class="btn-confirm-other" bindtap="pay_activity_onConfirm" data-status="confirm">去看看</view>
+  </view>
+</view> -->

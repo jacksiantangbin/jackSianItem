@@ -1,0 +1,137 @@
+<wxs module="filters" src="../../../../utils/util.wxs"></wxs>
+<view class='content'>
+  <view class='section'>
+    <view class='top' bindtap="groupDetail" data-order-Id='{{apiOrderBean.orderId}}' data-group-Id='{{apiOrderBean.groupId}}'>
+      <view class='center'>
+        <image src='{{apiOrderBean.itemCoverageImage}}' mode="aspectFill"></image>
+        <view class='center_right'>
+          <view class='name' wx:if='{{apiOrderBean.orderSource == 1}}'>{{apiOrderBean.itemTitle}}</view>
+          <view class='name' wx:if='{{apiOrderBean.orderSource == 2}}'>{{apiOrderBean.groupTitle}}</view>
+          <view class='name' wx:if='{{apiOrderBean.orderSource == 3}}'>{{apiOrderBean.activityTitle}}</view>
+          <view class='address' wx:if='{{apiOrderBean.orderSource != 1}}'>
+            <text>适用门店 </text>{{apiOrderBean.storeNames}}</view>
+
+          <view class='price' wx:if='{{apiOrderBean.orderSource == 1}}'>￥{{apiOrderBean.standardPrice}}
+          </view>
+          <view class='price' wx:if='{{apiOrderBean.orderSource == 2}}'>￥{{apiOrderBean.groupPrice}}
+            <view class='pin' wx:if='{{apiOrderBean.isGroup == 1}}'>拼</view>
+          </view>
+          <view class='price' wx:if='{{apiOrderBean.orderSource == 3}}'>￥{{apiOrderBean.activityPrice}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- <view class='pin' wx:if='{{apiOrderBean.isGroup == 1}}'>拼</view> -->
+    <view class='cu' wx:if='{{apiOrderBean.isActivity == 1}}'>促</view>
+  </view>
+  <view class="st_se">
+    <view class="st_top">
+      <view class="st_co"></view>适用门店
+    </view>
+    <view class='st_st'>
+      <view class="st_le" bindtap='getLocation'  data-address='{{storeDetail.address}}' data-lat='{{storeDetail.lat}}' data-lon='{{storeDetail.lon}}' data-name='{{storeDetail.orgName}}'>
+        <view class='top_store'>
+          <view class='flex'>
+            <view class='sd'>
+              <icon class="iconfont icon-dianpu1"></icon>
+            </view>
+            <text class='store_names'>{{storeDetail.orgName}}</text>
+          </view>
+        </view>
+        <view class='top_store'>
+          <view class='flex'>
+            <view class='sd'>
+              <icon class="iconfont icon-dingwei3"></icon>
+            </view>
+            <text class='store_names' wx:if='{{storeDetail.address}}'>{{storeDetail.address}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="st_rg" catchtap='telPhone' data-phone='{{storeDetail.telephone}}'>
+         <icon class="iconfont icon-dianhua1"></icon>
+      </view>
+    </view>
+  </view>
+  <view class='bottom'>
+    <view class="st_top">
+      <view class="st_co"></view>订单信息
+    </view>
+    <view class='one'>
+      <view class='left'>订单编号</view>
+      <view class='right'>{{apiOrderBean.orderCode}}</view>
+    </view>
+    <view class='one'>
+      <view class='left'>订单时间</view>
+      <view class='right'>{{apiOrderBean.orderTime}}</view>
+    </view>
+    <!-- <view class='one' wx:if="{{apiOrderBean.bespeakId != null }}">
+      <view class='left'>服务人员</view>
+      <view class='right'>{{apiOrderBean.staffName}}</view>
+    </view>
+    <view class='one' wx:if='{{apiOrderBean.bespeakId != null}}'>
+      <view class='left'>预约时间</view>
+      <view class='right'>{{apiOrderBean.bespeakDate}}</view>
+    </view> -->
+    <view class='one'>
+      <view class='left'>合计</view>
+      <view class='right'>￥{{filters.toFix(apiOrderBean.couponAmount + apiOrderBean.beautyCoin + apiOrderBean.shareAmount + apiOrderBean.realAmount)}}</view>
+    </view>
+    <!-- <view class='one'>
+      <view class='left'>分享金支付</view>
+      <view class='right'>￥{{apiOrderBean.shareAmount}}</view>
+    </view> -->
+    <!-- <view class='one' wx:if='{{apiOrderBean.orderSource == 1}}'>
+      <view class='left'>优惠折扣</view>
+      <view class='right'>￥{{apiOrderBean.couponAmount + apiOrderBean.beautyCoin}}</view>
+    </view> -->
+    <view class='one'>
+      <view class='left'>实际支付</view>
+      <view class='right'>￥{{apiOrderBean.realAmount}}</view>
+    </view>
+    <view class='one'>
+      <view class='left'>支付方式</view>
+      <view class='right' wx:if='{{apiOrderBean.payType == 1}}'>微信</view>
+      <view class='right' wx:if='{{apiOrderBean.payType == 2}}'>到店</view>
+    </view>
+    <view class='one' wx:if='{{apiOrderBean.orderSource == 2}}'>
+      <view class='left'>拼团类型</view>
+      <view class='right' wx:if='{{apiOrderBean.groupType ==1}}'>拉新团</view>
+      <view class='right' wx:if='{{apiOrderBean.groupType ==2}}'>日常团</view>
+    </view>
+    <view class='one' wx:if='{{orderState == 6}}'>
+      <view class='lefts'>订单退款中</view>
+    </view>
+    <view class='one' wx:if='{{orderState == 7}}'>
+      <view class='lefts'>订单已退款</view>
+    </view>
+    <view class='one' wx:if='{{orderState == 8}}'>
+      <view class='lefts'>订单退款失败</view>
+    </view>
+  </view>
+  <!-- <view class='footer'>
+    <view class='group_content'>
+      <view class='line'>
+        <view class='first'></view>
+        <view class='second'></view>
+        <view class='three'></view>
+      </view>
+      <view class='text'>
+        <text class='txt1'>
+          <text>{{refund_step1}}</text>
+          {{refund_hour1}}
+          <text>{{refund_mouth1}}</text>
+        </text>
+        <text class='txt2'>
+        <text>{{refund_step2}}</text>
+          {{refund_hour2}}
+          <text>{{refund_mouth2}}</text>
+        </text>
+        <text class='txt3'>
+        <text>{{refund_step3}}</text>
+          {{refund_hour3}}
+          <text>{{refund_mouth3}}</text>
+        </text>
+      </view>
+    </view>
+  </view> -->
+</view>

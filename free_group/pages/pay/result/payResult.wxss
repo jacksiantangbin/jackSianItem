@@ -1,0 +1,133 @@
+.content {
+  width: 100%;
+  height: 100%;
+  border-top: 2rpx solid #eee;
+}
+
+.section {
+  margin: 0 auto;
+  width: 90%;
+  height: 100%;
+}
+
+.section .row1 {
+  width: 100%;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 26rpx;
+  color: gray;
+  padding-top: 20rpx;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+.section .row1 .item_price {
+  margin-left: 10rpx;
+}
+
+.section .row2 {
+  width: 100%;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 26rpx;
+  color: gray;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowarp;
+    display:flex;
+justify-content:space-between;
+}
+
+.section .row2 .item_name {
+   margin-left: 10rpx;
+  width:450rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.store_group4 {
+background:#D9C397;
+  font-size: 24rpx;
+  color: #fff;
+  width:100rpx;
+  height: 46rpx;
+  text-align: center;
+  line-height: 46rpx;
+  margin-right: 20rpx;
+  border-radius: 10rpx 0 10rpx 0;
+}
+.section .row3 {
+  width: 100%;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 26rpx;
+  color: gray;
+}
+
+.section .row3 .order_num {
+  margin-left: 38rpx;
+}
+
+.result {
+  width: 100%;
+}
+
+.result image {
+  width: 200rpx;
+  height: 200rpx;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding-top: 180rpx;
+}
+
+.result .txt {
+  font-size: 32rpx;
+  text-align: center;
+  padding-top: 30rpx;
+}
+
+.btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding-top: 170rpx;
+}
+
+.btn .left_btn {
+  font-size: 28rpx;
+  width: 280rpx;
+  height: 60rpx;
+  text-align: center;
+  line-height: 60rpx;
+  border: 2rpx solid #4298dc;
+  color: #4298dc;
+  background: white;
+}
+
+.btn .right_btn {
+  font-size: 28rpx;
+  width: 280rpx;
+  height: 60rpx;
+  text-align: center;
+  line-height: 60rpx;
+  background: #4298dc;
+  color: white;
+}
+
+.footer {
+  width: 100%;
+  height: 80rpx;
+  font-size: 36rpx;
+  color: white;
+ background: -webkit - linear - gradient(left, #71D6F7, #307FD2);
+  position: fixed;
+  left: 0rpx;
+  bottom: 0rpx;
+  line-height: 80rpx;
+  text-align: center;
+}

@@ -1,0 +1,53 @@
+<swiper class="swiper-block" previous-margin="88rpx" next-margin="88rpx" current="0" bindchange="swiperChange">
+  <block wx:for="{{imgUrls}}" wx:index="{{index}}">
+    <swiper-item class="swiper-item">
+      <image mode="aspectFill" src="{{item}}" class="slide-image {{swiperIndex == index ? 'active' : ''}}" />
+    </swiper-item>
+  </block>
+</swiper>
+<view class="sections">
+  <view class='aaa' bindtap='getLocation' data-address='{{storeList.storeAddress}}' data-lat='{{storeList.lat}}' data-lon='{{storeList.lon}}' data-name='{{storeList.storeName}}'>
+    <view class='address_no'>
+      <icon class="iconfont icon-dingwei3"></icon>
+      <text class='ic_txt'>{{storeList.storeAddress}}</text>
+    </view>
+    <view class='more'>
+      <icon class="iconfont icon-youjiantou"></icon>
+    </view>
+  </view>
+  <view class='aaa' bindtap='telPhone' data-phone='{{storeList.stroeTelephone}}'>
+    <view class='address_no'>
+      <icon class="iconfont icon-dianhua"></icon>
+      <text class='ic_txt'>{{storeList.stroeTelephone}}</text>
+    </view>
+    <view class='more'>
+      <icon class="iconfont icon-youjiantou"></icon>
+    </view>
+  </view>
+  <view class='aaa'>
+    <view class='address_no'>
+      <icon class="iconfont icon-shijian1"></icon>
+      <text class='ic_txt'>9:00 ~ 19:00</text>
+    </view>
+  </view>
+  <view class='bbb'>
+    <view class='address_no'>
+      <icon class="iconfont icon-riliriqi2"></icon>
+      <text class='ic_txt'>商户简介</text>
+    </view>
+  </view>
+  <view class='st_txt'>
+    {{storeList.storeRemark}}
+  </view>
+  <view class='top' wx:if='{{storeImageList.length > 0}}'>
+    <view class='top_top'>
+      <view class='nav'></view>店铺图片
+    </view>
+    <view bindtap='storeList' class='picList' bindtap='picList' data-org-Id='{{storeList.orgId}}'>更多
+      <icon class="iconfont icon-youjiantou"></icon>
+    </view>
+  </view>
+  <view class='section_top' wx:if='{{storeImageList.length > 0}}'>
+    <image class='one_img' wx:for="{{storeImageList}}" wx:key='' src='{{item.imageUrl}}' data-Id='{{item.id}}' catchtap='previewImage2' data-url="{{item}}" mode='aspectFill' data-imagelist="{{storeImageList}}"></image>
+  </view>
+</view>

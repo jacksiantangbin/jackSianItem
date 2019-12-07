@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "rule": "/components/rule/rule",
+    "my_component_logo": "/components/logo/logo"
+  },
+  "disableScroll": true,
+  "enablePullDownRefresh": false
+}

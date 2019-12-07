@@ -1,0 +1,48 @@
+<view class='box'>
+  <view class='top'>
+    <image class='headImg' src='{{myPhone}}' mode='aspectFill'></image>
+    <view class='edit' bindtap='myEdit'>
+      <view class='myName' wx:if='{{nickName}}'>{{nickName}}</view>
+      <view class='myName' wx:if='{{!nickName}}'>昵称</view>
+      <icon class="iconfont icon-bianji"></icon>
+    </view>
+    <!-- <view class='bd_vip' bindtap='myVip'>我的会员卡</view> -->
+  </view>
+  <view class='bottom'>
+    <view class='aaa' bindtap='order'>
+      <view class='address_no'>
+        <icon class="iconfont icon-single"></icon>
+        <text class='ic_txt'>全部订单</text>
+      </view>
+      <view class='more'>
+        <icon class="iconfont icon-youjiantou"></icon>
+      </view>
+    </view>
+    <!-- <view class='aaa' bindtap='shareRed'>
+      <view class='address_no'>
+        <icon class="iconfont icon-jinrongyinhang"></icon>
+        <text class='ic_txt'>我的分红</text>
+      </view>
+      <view class='more'>
+        <icon class="iconfont icon-youjiantou"></icon>
+      </view>
+    <!-- </view> -->
+    <view class='aaa' bindtap='introduce'>
+      <view class='address_no'>
+        <icon class="iconfont icon-shezhi-xue"></icon>
+        <text class='ic_txt'>设置</text>
+      </view>
+      <view class='more'>
+        <icon class="iconfont icon-youjiantou"></icon>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- <view wx:if="{{isShow}}">
+  <dialog id='dialog' title='登录提示' content='小程序需要您的授权才能提供更好的服务哦' confirmText='知道了' bind:confirmEvent='confirmEvent' bind:bindGetUserInfo='bindGetUserInfo'>
+  </dialog>
+</view> -->
+
+<view wx:if="{{showModal_logo}}">
+  <my_component_logo showModal='{{showModal_logo}}'></my_component_logo>
+</view>

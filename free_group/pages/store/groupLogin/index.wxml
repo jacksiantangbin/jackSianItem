@@ -1,0 +1,29 @@
+<view class='content'>
+  <view class='top'>
+    <image src='{{login_name}}' mode="aspectFit"></image>
+  </view>
+  <form bindsubmit='submitCheckInfo'>
+    <view class='wran-tips' style='{{displayWarn}}'>
+      <text>{{warnInfo}}</text>
+    </view>
+
+    <view class="container">
+      <view class='container-info'>
+        <view class="man-form-info">
+          <view class='phone'>
+           登录 <input class='input' placeholder='请输入账号' name="tel" value='{{phoneNum}}' bindinput="phoneNumBlur"> </input>
+          </view>
+          <view class='regcode'>
+          密码 <input class='input' placeholder='请输入密码' name="regcode" bindinput='getCodeValue' value='{{code}}' password='true'></input>
+          </view>
+        </view>
+      </view>
+
+
+      <view class='submit-form-info'>
+        <button form-type='submit'>登录</button>
+      </view>
+
+    </view>
+  </form>
+</view>

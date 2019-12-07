@@ -1,0 +1,104 @@
+<wxs module="filters" src="../../../utils/util.wxs"></wxs>
+<view class='content'>
+  <view class='bigbox'>
+    <view class='header' data-group-Id='{{group.groupId}}'>
+      <!-- <view class='header_left'>
+        <image src='{{group.coverImage}}' mode="aspectFill"></image>
+      </view>
+      <view class='header_right'>
+        <view class='name'>{{group.groupTitle}}</view>
+        <view class='item_price'>活动价:
+          <text>￥{{group.groupPrice}}</text>
+        </view>
+      </view> -->
+      <view class="od_center">
+        <view class="od_img">
+          <image src="{{group.coverImage}}" class="od_img_img" mode="aspectFill"></image>
+        </view>
+        <view class='od_right'>
+          <view class="od_title">{{group.groupTitle}}</view>
+          <view class="od_price">
+            <view class="od_p">￥{{group.groupPrice}}</view>
+            <view class='od_day' wx:if='{{group.groupType == 2}}'>日常团</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- <view class='day' wx:if='{{group.groupType == 2}}'>日常团</view> -->
+    <!-- <view class='nav'></view> -->
+    <view class="st_se">
+      <view class="st_top">
+        <view class="st_co"></view>适用门店
+      </view>
+      <view class='st_st'>
+        <view class="st_le" bindtap='getLocation' data-address='{{storeDetail.address}}' data-lat='{{storeDetail.lat}}' data-lon='{{storeDetail.lon}}' data-name='{{storeDetail.orgName}}'>
+          <view class='top_store'>
+            <view class='flex'>
+              <view class='sd'>
+                <icon class="iconfont icon-dianpu1"></icon>
+              </view>
+              <text class='store_names'>{{storeDetail.orgName}}</text>
+            </view>
+          </view>
+          <view class='top_store'>
+            <view class='flex'>
+              <view class='sd'>
+                <icon class="iconfont icon-dingwei3"></icon>
+              </view>
+              <text class='store_names' wx:if='{{storeDetail.address}}'>{{storeDetail.address}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="st_rg" catchtap='telPhone' data-phone='{{storeDetail.telephone}}'>
+          <icon class="iconfont icon-dianhua1"></icon>
+        </view>
+      </view>
+    </view>
+    <!-- <view class='select'>
+      <view class='activityStore'>
+        <view class='lists_top'>
+          <text class='lists_left'>适用门店</text>
+          <text class='lists_right'>(上下滑动查看更多)</text>
+        </view>
+        <scroll-view scroll-y='true' class='out'>
+          <scroll-view scroll-y='true' class='lists_bottom' data-org-Id='{{item.orgId}}' wx:for='{{storeList}}' wx:key='{{item.orgId}}' bindtap='groupStoreDetail'>
+            <view class='store1'>{{item.storeName}}</view>
+          </scroll-view>
+        </scroll-view>
+      </view>
+    </view> -->
+    <view class='nav'></view>
+
+    <view class='pay_list'>
+      <view class="st_top">
+        <view class="st_co"></view>支付方式
+      </view>
+      <view class='wx'>
+        <view class='display'>
+          <!-- <image src='{{wx}}' mode="aspectFill"></image> -->
+          <icon class="iconfont icon-weixinzhifu"></icon>
+          <view class='pay_title'>微信支付</view>
+        </view>
+        <view class='fuli'>
+          <radio-group name="fl" bindchange='wx_pay'>
+            <label>
+              <radio value="微信支付" checked="{{checked}}"></radio>
+            </label>
+          </radio-group>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='footer_container'>
+    <view class='phone_container'>
+      <view class='two'>
+        <!-- <text class='ss'>已优惠￥{{filters.toFix(group.itemPrice - group.groupPrice - -sharegold)}}</text> -->
+        <view>需支付
+          <text class='pp'>￥{{filters.toFix(group.groupPrice - sharegold)}}</text>
+        </view>
+      </view>
+    </view>
+    <view class='buy_container' bindtap='navigateToPayResult' wx:if='{{isPay == 1}}' data-index='{{item4_index}}'>支付</view>
+    <view class='buy_container' wx:if='{{isPay == 0}}' data-index='{{item4_index}}'>支付</view>
+  </view>
+</view>

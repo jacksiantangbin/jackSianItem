@@ -1,0 +1,7 @@
+<view class='content'>
+  <view class='top'>
+    <image src='{{login_name}}'></image>
+  </view>
+  <button class='btn1' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"  >微信用户快捷登录</button>
+  <button class='btn2' bindtap='phone_login'>手机号注册登录</button>
+</view>

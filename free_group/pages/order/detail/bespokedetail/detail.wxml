@@ -1,0 +1,146 @@
+<wxs module="filters" src="../../../../utils/util.wxs"></wxs>
+<view class='content'>
+  <view class='section'>
+    <view class='top' bindtap="groupDetail" data-order-Id='{{apiOrderBean.orderId}}' data-group-Id='{{apiOrderBean.groupId}}'>
+      <view class='center'>
+        <image src='{{apiOrderBean.itemCoverageImage}}' mode="aspectFill"></image>
+        <view class='center_right'>
+          <view class='name' wx:if='{{apiOrderBean.orderSource == 1}}'>{{apiOrderBean.itemTitle}}</view>
+          <view class='name' wx:if='{{apiOrderBean.orderSource == 2}}'>{{apiOrderBean.groupTitle}}</view>
+          <view class='name' wx:if='{{apiOrderBean.orderSource == 3}}'>{{apiOrderBean.activityTitle}}</view>
+          <view class='storeName' wx:if='{{apiOrderBean.orderSource == 1}}'>{{apiOrderBean.storeNames}}</view>
+          <view class='address' wx:if='{{apiOrderBean.orderSource == 1}}'>
+            <text>店铺地址 </text>{{apiOrderBean.storeAddress}}</view>
+          <view class='address' wx:if='{{apiOrderBean.orderSource != 1}}'>
+            <text>适用门店 </text>{{apiOrderBean.storeNames}}</view>
+
+          <view class='price' wx:if='{{apiOrderBean.orderSource == 1}}'>￥{{apiOrderBean.standardPrice}}
+          </view>
+          <view class='price' wx:if='{{apiOrderBean.orderSource == 2}}'>￥{{apiOrderBean.groupPrice}}
+            <view class='pin' wx:if='{{apiOrderBean.isGroup == 1}}'>拼</view>
+            
+            <view class='gr_y' wx:if='{{apiOrderBean.groupActivityState == 1 && apiOrderBean.orderState == 2}}'>已成团</view>
+            <view class='gr_n' wx:if='{{apiOrderBean.groupActivityState != 1 && apiOrderBean.orderState == 2}}'>待成团</view>
+          </view>
+          <view class='price' wx:if='{{apiOrderBean.orderSource == 3}}'>￥{{apiOrderBean.activityPrice}}
+          </view>
+        </view>
+      </view>
+      <!-- <view class='pin' wx:if='{{apiOrderBean.isGroup == 1}}'>拼</view> -->
+      <view class='cu' wx:if='{{apiOrderBean.isActivity == 1}}'>促</view>
+    </view>
+  </view>
+  <view class="st_se">
+    <view class="st_top">
+      <view class="st_co"></view>适用门店
+    </view>
+    <view class='st_st'>
+      <view class="st_le" bindtap='getLocation'  data-address='{{storeDetail.address}}' data-lat='{{storeDetailn.lat}}' data-lon='{{storeDetail.lon}}' data-name='{{storeDetail.orgName}}'>
+        <view class='top_store'>
+          <view class='flex'>
+            <view class='sd'>
+              <icon class="iconfont icon-dianpu1"></icon>
+            </view>
+            <text class='store_names'>{{storeDetail.orgName}}</text>
+          </view>
+        </view>
+        <view class='top_store'>
+          <view class='flex'>
+            <view class='sd'>
+              <icon class="iconfont icon-dingwei3"></icon>
+            </view>
+            <text class='store_names' wx:if='{{storeDetail.address}}'>{{storeDetail.address}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="st_rg" catchtap='telPhone' data-phone='{{storeDetail.telephone}}'>
+         <icon class="iconfont icon-dianhua1"></icon>
+      </view>
+
+    </view>
+  </view>
+  <view class='bottom_bottom'>
+    <view class="st_top">
+      <view class="st_co"></view>订单信息
+    </view>
+    <view class='one'>
+      <view class='left'>订单编号</view>
+      <view class='right'>{{apiOrderBean.orderCode}}</view>
+    </view>
+    <view class='one'>
+      <view class='left'>订单时间</view>
+      <view class='right'>{{apiOrderBean.orderTime}}</view>
+    </view>
+    <view class='one'>
+      <view class='left'>合计</view>
+      <view class='right'>￥{{filters.toFix(apiOrderBean.couponAmount + apiOrderBean.beautyCoin + apiOrderBean.shareAmount + apiOrderBean.realAmount)}}</view>
+    </view>
+    <view class='one'>
+      <view class='left'>实际支付</view>
+      <view class='right'>￥{{apiOrderBean.realAmount}}</view>
+    </view>
+    <view class='one'>
+      <view class='left'>支付方式</view>
+      <view class='right' wx:if='{{apiOrderBean.payType == 1}}'>微信</view>
+      <view class='right' wx:if='{{apiOrderBean.payType == 2}}'>到店</view>
+    </view>
+    <view class='one' wx:if='{{apiOrderBean.orderSource == 2}}'>
+      <view class='left'>拼团类型</view>
+      <view class='right' wx:if='{{apiOrderBean.groupType ==1}}'>拉新团</view>
+      <view class='right' wx:if='{{apiOrderBean.groupType ==2}}'>日常团</view>
+    </view>
+    <view class='one' wx:if='{{orderState == 10}}'>
+      <view class='lefts'>订单已完成</view>
+    </view>
+
+    <view class='two' wx:if='{{apiOrderBean.orderSource == 2 && apiOrderBean.groupActivityState != 1 && apiOrderBean.orderState == 2 && groupTime > 999}}'>
+     <view class='left'>还差{{apiOrderBean.fewPerson}}人拼团成功</view>
+      <view class='right'>{{group_clock}}
+        <text>剩余</text> </view>
+    </view>
+    <view class='two' wx:if='{{apiOrderBean.orderSource == 2 && apiOrderBean.groupActivityState != 1 && apiOrderBean.orderState == 2 && groupTime < 1000}}'>
+     <view class='left'>还差{{apiOrderBean.fewPerson}}人拼团成功</view>
+      <view class='right'>00：00：00
+        <text>剩余</text> </view>
+    </view>
+    <!-- #ff3b30 -->
+     <view class='one' wx:if='{{apiOrderBean.orderSource == 2 && apiOrderBean.groupActivityState == 1 && apiOrderBean.orderState == 2}}'>
+      <view class='lefts_he'>拼团成功，去核销吧～</view>
+    </view>
+
+    <!-- <view class='two' wx:if='{{apiOrderBean.orderSource == 2 && apiOrderBean.groupRemainTime > 0 && apiOrderBean.groupActivityState != 1}}'>
+      <view class='right'>{{group_clock}}
+        <text>剩余时间</text> </view>
+      <view class='left'>还差{{apiOrderBean.fewPerson}}人拼团成功</view>
+    </view> -->
+
+  </view>
+  <view class='footer' wx:if='{{apiOrderBean.orderState == 2}}'>
+    <view class='footer_bottom'>
+      <!-- <view class='left'> </view>
+      <view class='center'></view> -->
+      <view class='right' bindtap='my_bespokedetail' data-group-State="{{apiOrderBean.groupActivityState}}" data-order-Id='{{apiOrderBean.orderId}}'>去核销</view>
+    </view>
+  </view>
+</view>
+
+
+
+<!--弹窗-->
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog" wx:if="{{showModal}}">
+  <view class="modal-title">是否核销此订单？</view>
+  <view class="modal-footer">
+    <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+    <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+  </view>
+</view>
+
+<!-- <view bindtap='hide' class="Zhezhao  {{isTrue?'isShow':'isHide'}}">
+  <view class='ZhezhaoContent'>
+    <image src='{{success}}' mode="aspectFill"></image>
+    <text class='txt'>取消成功</text>
+    <text class='txt2'>在我的预约 - 待预约中可重新申请</text>
+  </view>
+</view> -->

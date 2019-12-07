@@ -1,0 +1,60 @@
+<view class="navbar">
+  <view class="navbar-item" wx:for="{{navbar}}" wx:for-index="idx" wx:key="key" data-idx="{{idx}}" bindtap="swichNav">
+    <text class="navbar-text {{currentNavbar==idx ? 'active' : ''}}">{{item}}</text>
+  </view>
+</view>
+<scroll-view scroll-y='true' class='detail'>
+  <scroll-view class="hot-item-container {{currentNavbar==0 ? '' : 'hidden'}}" style="height:93vh;" scroll-y="true" bindscrolltolower="pullUpLoadLatest">
+    <view class='section' wx:if='{{totalleft > 0}}'>
+      <view class='content' bindtap='actionDetail' data-share='0' wx:for='{{actionListleft}}' wx:key='' data-activity-Id = '{{item.activityId}}' data-holder-Id='{{item.id}}'>
+        <image src='{{actionBg}}' class='bg' mode='aspectFill'></image>
+        <view class='position'>
+          <view class='top'>
+            <text class='title'>{{item.activityName}}</text>
+          </view>
+          <text class='time'>有效期：{{item.beginDate}} ~ {{item.endDate}}</text>
+          <view class='bottom'>
+            <view class='price'>
+              <text class='p'>￥{{item.amount}}</text> 可使用{{item.useTimes}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:else='{{totalleft < 1}}'>
+      <view class="page-loading">
+        <view class='img'>
+          <image class='loading' src='{{dialog}}'></image>
+        </view>
+        <view class='word'>暂无活动~</view>
+      </view>
+    </view>
+  </scroll-view>
+  <scroll-view class="hot-item-container {{currentNavbar==1 ? '' : 'hidden'}}" style="height:93vh;" scroll-y="true" bindscrolltolower="pullUpLoadLatest">
+    <view class='section' wx:if='{{totalright > 0}}'>
+      <view class='content' bindtap='actionDetail' data-share='1' wx:for='{{actionListright}}' wx:key='' data-activity-Id = '{{item.activityId}}' data-holder-Id='{{item.id}}'>
+        <image src='{{actionBg}}' class='bg' mode='aspectFill'></image>
+        <view class='position'>
+          <view class='top'>
+            <text class='title'>{{item.activityName}}</text>
+          </view>
+          <text class='time' wx:if='{{item.validateType == 2}}'>有效期：{{item.beginDate}} ~ {{item.endDate}}</text>
+          <text class='time' wx:if='{{item.validateType == 1}}'>领取后{{item.laterDays}}天有效</text>
+          <view class='bottom'>
+            <view class='price'>
+              <text class='p'>￥{{item.amount}}</text> 可领取{{item.shareTimes}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:else='{{totalright < 1}}'>
+      <view class="page-loading">
+        <view class='img'>
+          <image class='loading' src='{{dialog}}'></image>
+        </view>
+        <view class='word'>暂无活动~</view>
+      </view>
+    </view>
+  </scroll-view>
+</scroll-view>

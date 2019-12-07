@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+      "my_component_logo": "/components/logo/logo",
+      "rule": "/components/rule/rule"
+    }
+}

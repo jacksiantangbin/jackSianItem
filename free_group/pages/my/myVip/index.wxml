@@ -1,0 +1,4 @@
+<view class='content'>
+  <view class='no_card'>您还没有会员卡</view>
+  <view class='yes_card' bindtap='vip_card'>已有卡？直接绑定</view>
+</view>
