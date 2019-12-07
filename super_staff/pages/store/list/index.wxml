@@ -1,0 +1,36 @@
+<view class='content'>
+  <view class='sections'>
+    <view class='section' wx:for='{{storeList}}' wx:key=''>
+      <view class='content_center'>
+        <view class='one' bindtap='storeDetail' data-org-Id='{{item.orgId}}'>
+          <view class='left'>
+            <image src='{{item.storeCoverageImage}}' class='coverimg' mode='aspectFill'></image>
+          </view>
+          <view class='right'>
+            <view class='top_one'>
+              <view class='title'>{{item.storeName}}</view>
+            </view>
+            <view class='address'>
+              <view class='position'>
+                <icon class="iconfont icon-dingwei4"></icon>
+              </view>
+              <text class='txt'>{{item.storeAddress}}</text>
+            </view>
+          </view>
+        </view>
+        {{orgId}}
+        <image class='store_top' src='{{storeTop}}' wx:if='{{orgIds == item.storeSetId}}'></image>
+      </view>
+      <view class='two'>
+        <view class='tw_left' bindtap='telPhone' data-phone='{{item.stroeTelephone}}'>
+          <icon class="iconfont icon-dianhua"></icon>
+          <text>{{item.stroeTelephone}}</text>
+        </view>
+        <view class='tw_left' bindtap='getLocation' data-address='{{item.storeAddress}}' data-lat='{{item.lat}}' data-lon='{{item.lon}}' data-name='{{item.storeName}}'>
+          <icon class="iconfont icon-zuobiao"></icon>
+          <text>导航去这里</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
