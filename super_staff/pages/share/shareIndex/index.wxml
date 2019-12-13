@@ -1,9 +1,0 @@
-<view class='content'>
-  <view class='contents'>
-    <canvas style="width:100%;height:{{contentHeight}}px;position:fixed;" canvas-id="myCanvas" bindlongpress="savePic" class='canvas'>
-      <view bindtap='saveShareImg' class='pic'>保存图片</view>
-      <!-- <view bindtap='savePic'>预览并发送</view> -->
-    </canvas>
-  </view>
-  <canvas class='canvas_my' canvas-id='canvas'></canvas>
-</view>

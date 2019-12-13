@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "my_component_logo": "/components/logo/logo"
-  },
-  "navigationBarTitleText": "超级员工",
-  "disableScroll": true,
-  "enablePullDownRefresh": false
-}

@@ -1,9 +1,0 @@
-<view class='membership_content'>
-  <view class='membership_top'>
-    <image src='{{membershipImg}}' mode="aspectFit"></image>
-    <view class='txt'>你还没有会员卡</view>
-    <view class='button' bindtap='login'>
-      已有卡？直接绑定
-    </view>
-  </view>
-</view>

@@ -1,6 +1,0 @@
-<wxs module="filters" src="../../../../utils/util.wxs"></wxs>
-<view class='content' wx:if="{{pageType==1}}">
-  <rich-text type="text" nodes="{{content}}">
-  </rich-text>
-  <!-- <template is="wxParse" data="{{wxParseData:article.nodes}}" /> -->
-</view>
