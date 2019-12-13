@@ -1,0 +1,35 @@
+<scroll-view scroll-y='true' class='content'>
+  <view class='section' >
+    <view class='center' wx:for='{{activityList}}' wx:key=''>
+      <image src='{{item.coverImage}}' class='bg' mode='aspectFill'></image>
+      <view class='position' bindtap="activityDetail" data-activity-Id='{{item.id}}' data-holder-Id='{{item.shareholderActivityId}}' data-is-Get='{{item.isGet}}'>
+        <view class='top'>
+          <text class='title'>{{item.activityName}}</text>
+          <text class='time' wx:if='{{item.validateType == 2}}'>有效期：{{item.beginDate}} ~ {{item.endDate}}</text>
+          <text class='time' wx:else>领取后<text class="get_num">{{item.laterDays}}</text>天有效</text>
+        </view>
+        <view class='bottom'>
+          <view class='price'>价值
+            <text class='p'>￥{{item.amount}}</text>
+          </view>
+          <view class='btn' wx:if='{{item.isGet == 0}}' catchtap="freeCollect" data-activity-Id='{{item.id}}'>免费领取</view>
+          <view class='btn2' wx:else>已领取</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+<!-- <view wx:else='{{total < 1}}'>
+  <view class="page-loading">
+    <view class='img'>
+      <image class='loading' src='{{dialog}}'></image>
+    </view>
+    <view class='word'>暂无活动~</view>
+  </view>
+</view> -->
+
+
+<!-- 组件获取基本信息 -->
+<view wx:if="{{showModal_logo}}">
+  <my_component_logo showModal='{{showModal_logo}}'></my_component_logo>
+</view>

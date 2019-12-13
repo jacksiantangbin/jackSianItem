@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "dialog": "/components/dialog/dialog" ,
+    "my_component_logo": "/components/logo/logo"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

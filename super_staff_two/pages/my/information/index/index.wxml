@@ -1,0 +1,42 @@
+<view class='content'>
+  <view class='section'>
+    <view class='top'>
+      <image src='{{myPhone}}' mode="aspectFit"></image>
+    </view>
+    <view class='center'>
+      <view class='name'>*微信昵称</view>
+      <view class='wx_name'>{{user.nickName}}</view>
+
+      <view class='name'>*用户姓名</view>
+      <input class='input_name'  maxlength="3" value='{{user.name}}' bindinput="blurName"></input>
+      <view class='sex'>性别</view>
+      <radio-group class="item-right radio-group" data-sex-Type='{{user.gender}}' bindchange="radioChange">
+        <label class="radio" wx:for="{{items}}" wx:key='key'>
+          <view>{{item.name}}</view>
+          <radio checked="{{item.checked}}"/>
+        </label>
+      </radio-group>
+    </view>
+    <view class='nav'></view>
+    <view class='center'>
+      <view class='phone'>绑定手机号</view>
+      <view class='one'>
+        <view class='input_phone' placeholder='微信号绑定的手机号' wx:if='{{user.phone == null}}'></view>
+        <view class='input_phone' placeholder='微信号绑定的手机号' wx:if='{{user.phone != null}}'>{{userPhone}}</view>
+        <view  class='aaa' bindtap='change_num'>更改手机号</view>
+      </view>
+      <!-- <view class='one'>
+        <input class='input_card' type='number' value='' placeholder='会员卡绑定的手机号' maxlength="11" bindinput='blurPhone'></input>
+        <view>绑定</view>
+      </view>
+      <view class='address'>
+        <view>{{item.address}}</view>
+        <view>(40个字符)</view>
+      </view>
+      <view class='bottom'>
+        <textarea class='text' autofocus rows="3"></textarea>
+      </view> -->
+    </view>
+  </view>
+</view>
+<view class="footer" bindtap="my_center">保 存</view>

@@ -1,0 +1,17 @@
+<view class='content'>
+  <view class='top'>
+    <image src='{{logo}}'></image>
+  </view>
+  <view class='text' wx:if='{{aboutUs.bandRemark}}'>{{aboutUs.bandRemark}}</view>
+  <view class='bottom'>
+    <view class='one' wx:if='{{aboutUs.name}}'>
+      <text>微信公众号</text>
+      <text>{{aboutUs.name}}</text>
+    </view>
+    <view class='one' wx:if='{{aboutUs.phone}}'>
+      <text>联系电话</text>
+      <text>{{aboutUs.phone}}</text>
+    </view>
+  </view>
+  <view class='footer'>美客（北京）科技有限公司技术支持</view>
+</view>

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "my_component_logo": "/components/logo/logo"
+  },
+  "navigationBarTitleText": "活动详情",
+  "disableScroll": true,
+  "enablePullDownRefresh": false
+}
