@@ -1,0 +1,44 @@
+.content{
+  width: 100%;
+  height: 100%;
+}
+.top{
+  width: 100%;
+  height: 400rpx;
+  margin-bottom: 20rpx;
+}
+.top image{
+  width: 100%;
+  height: 400rpx;
+  
+}
+::-webkit-scrollbar {
+     width: 0;
+     height: 0;
+     color: transparent;
+}
+.bottom{
+  width: 94%;
+  height: 506rpx;
+  margin: 0 auto;
+  border: 2rpx solid gray;
+}
+.bottom textarea{
+  width: 96%;
+  height: 480rpx;
+  font-size: 28rpx;
+  padding: 12rpx;
+}
+.footer{
+  width: 93%;
+  height: 80rpx;
+  margin: 0 auto;
+  background: #4298DC;
+  color: white;
+  font-size: 36rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8rpx;
+  margin-top: 60rpx;
+}

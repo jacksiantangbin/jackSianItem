@@ -1,0 +1,20 @@
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog" wx:if="{{showModal}}">
+  <view class='group_content'>
+    <view class='content_title'>
+      <view class='navTab'></view>拼团玩法介绍</view>
+    <view class='line'>
+      <view class='first'>1</view>
+      <view class='second'>2</view>
+      <view class='three'>3</view>
+    </view>
+    <view class='text'>
+      <text class='txt1'>支付 开团/参团</text>
+      <text class='txt2'>邀请 好友参团</text>
+      <text class='txt3'>达到人数拼团成功 逾期未成功自动退款</text>
+    </view>
+  </view>
+ <view class="modal-footer">
+    <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">我知道了</view>
+  </view>
+</view>

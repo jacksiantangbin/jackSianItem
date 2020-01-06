@@ -1,0 +1,69 @@
+<view class='box'>
+  <view class='top'>
+    <image class='headImg' src='{{myPhone}}' mode='aspectFill'></image>
+    <view class='edit' bindtap='myEdit'>
+      <view class='myName' wx:if='{{nickName}}'>{{nickName}}</view>
+      <view class='myName' wx:if='{{!nickName}}'>昵称</view>
+      <icon class="iconfont icon-bianji" wx:if='{{tenantId}}'></icon>
+    </view>
+    <view wx:if='{{tenantId}}'>
+      <view class='bd_vip' bindtap='superStaff' wx:if='{{superStaff > 0}}'>超级员工</view>
+      <view class='bd_vip' bindtap='myVip' wx:else>我的会员卡</view>
+    </view>
+
+    <view class="top_box" catchtap="storeType" wx:if='{{tenantLength > 1}}'>
+      <image class="tanentType" src="{{tanentType}}" mode="aspectFill"></image>
+      <text class="stt_txt">{{tenantName}}</text>
+    </view>
+  </view>
+  <view class='bottom'>
+    <view class='aaa' bindtap='shareRed' wx:if='{{memberCount > 0 && isShareholder > 0}}'>
+      <view class='address_no'>
+        <icon class="iconfont icon-jinrongyinhang"></icon>
+        <text class='ic_txt'>我的分红</text>
+      </view>
+      <view class='more'>
+        <icon class="iconfont icon-youjiantou"></icon>
+      </view>
+    </view>
+    <view class='aaa' bindtap='message' wx:if='{{memberCount > 0 && isShareholder > 0}}'>
+      <view class='address_no'>
+        <icon class="iconfont icon-huodongliebiao"></icon>
+        <text class='ic_txt'>活动消息</text>
+      </view>
+      <view class='more'>
+        <icon class="iconfont icon-youjiantou"></icon>
+      </view>
+    </view>
+    <view class='aaa' bindtap='actionList'>
+      <view class='address_no'>
+        <icon class="iconfont icon-mendianhuodong"></icon>
+        <text class='ic_txt'>活动列表</text>
+      </view>
+      <view class='more'>
+        <icon class="iconfont icon-youjiantou"></icon>
+      </view>
+    </view>
+    <view class='aaa' bindtap='note'>
+      <view class='address_no'>
+        <icon class="iconfont icon-jilu"></icon>
+        <text class='ic_txt'>核销记录</text>
+      </view>
+      <view class='more'>
+        <icon class="iconfont icon-youjiantou"></icon>
+      </view>
+    </view>
+    <view class='aaa' bindtap='introduce'>
+      <view class='address_no'>
+        <icon class="iconfont icon-shezhi-xue"></icon>
+        <text class='ic_txt'>设置</text>
+      </view>
+      <view class='more'>
+        <icon class="iconfont icon-youjiantou"></icon>
+      </view>
+    </view>
+  </view>
+</view>
+<view wx:if="{{showModal_logo}}">
+  <my_component_logo showModal='{{showModal_logo}}'></my_component_logo>
+</view>
