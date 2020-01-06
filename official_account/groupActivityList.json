@@ -1,0 +1,30 @@
+{
+	"errno": 0,
+	"data": {
+		"total": 1,
+		"state": true,
+		"rows": [{
+			"groupActivityId": 640,
+			"groupId": 273,
+			"beginTime": 1577429295000,
+			"endTime": 1577548800000,
+			"creatUserId": 166,
+			"activityId": null,
+			"activityCode": "testcode",
+			"activityState": "1",
+			"tenantId": 199,
+			"businessType": "1",
+			"personCount": 4,
+			"isCompute": "1",
+			"nickName": "抬起头往前走℡²⁰¹⁹",
+			"creatorName": null,
+			"creatorAvatarUrl": null,
+			"attendList": [],
+			"leftTime": null,
+			"successOperate": null,
+			"isSelf": null,
+			"displayState": "1"
+		}]
+	},
+	"errmsg": "执行成功"
+}

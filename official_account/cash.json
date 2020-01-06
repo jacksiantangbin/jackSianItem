@@ -1,0 +1,19 @@
+{
+	"errno": 0,
+	"data": {
+		"msg": "查询成功！",
+		"total": 1,
+		"state": true,
+		"rows": [{
+			"id": 10,
+			"tenantId": 199,
+			"amount": 0.65,
+			"leftAmount": 1.0,
+			"chargePerson": "李浩",
+			"chargePhone": "13800138000",
+			"staffName": "jay",
+			"serviceTime": 1577760893000
+		}]
+	},
+	"errmsg": "执行成功"
+}

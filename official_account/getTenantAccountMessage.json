@@ -1,0 +1,17 @@
+{
+	"errno": 0,
+	"data": {
+		"checkedCount": 3,
+		"msg": "查询成功！",
+		"realAmount":12,
+		"totalAmount": 1.76,
+		"waitAmount": 1.76,
+		"unfishCount": 28,
+		"recordAmount": 0.0,
+		"orderCount": 46,
+		"state": true,
+		"unCheckedCount": 34,
+		"fishCount": 28
+	},
+	"errmsg": "执行成功"
+}

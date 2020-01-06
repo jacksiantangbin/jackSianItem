@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" id="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no" />
+		<!-- <title>哈哈</title> -->
+		<link href="css/common.css" rel="stylesheet" type="text/css" />
+		<link href="css/cash.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div class="biGbox">
+			<!--头部开始-->
+			<div class="header">
+				<a href="tenant.html" class="left">
+					<i class="iconfont">&#xe601;</i>
+				</a>
+				提现记录
+				<a href="" class="top_he_right">
+					<i class="iconfont">&#xe600;</i>
+				</a>
+			</div>
+			<!-- 记录列表 -->
+			<div class="cash_list" id="cashList">
+				
+			</div>
+		</div>
+		<img src="img/over.png" class="none" id="box_hide" style="display: none;"/>
+	</body>
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="js/cash.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			optionsData()
+		});
+		function optionsData(){
+			var tenantId = $.Request("tenantId");
+			cashList(tenantId)
+		}
+		function timestampToTime(timestamp) {
+			var date = new Date(timestamp); //timestamp 为10位需*1000，timestamp 为13位的话不需乘1000
+			var Y = date.getFullYear() + '-';
+			var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+			var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+			var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+			var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+			// var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+			return Y + M + D + h + m;
+		}
+		// 提现记录
+		function cashList(tenantId){
+			$.ajax({
+				type: 'get',
+				url: 'cash.json',
+				dataType: 'json',
+				data:{
+				tenantId:tenantId	
+				},
+				success: function(data) {
+					if (data.errno == 0) {
+						var cashData = data.data.rows;
+						if(cashData.length < 1){
+							$(".cash_list").hide();
+							$("#box_hide").show();
+						}
+						var cash_list = '';
+						//对数据做遍历，拼接到页面显示
+						for (var i = 0; i < cashData.length; i++) {
+							cash_list += 
+							'<div class="cash_list_center">'+
+								'<div class="list_top">'+
+									'<span class="top_left">'+'提现'+'</span>'+
+									'<span class="top_right">'+ cashData[i].amount +'</span>'+
+								'</div>'+
+								'<div class="list_bottom">'+
+									'<span class="bottom_left" id="date">'+ timestampToTime(cashData[i].serviceTime) +'</span>' +
+									'<span class="bottom_right">' + '¥'+'&nbsp;'+ cashData[i].leftAmount + '</span>' +
+								'</div>' +
+							'</div>';
+						}
+						//放入页面的容器显示
+						$('#cashList').html(cash_list); 
+					}
+				},
+				error: function(jqXHR) {}
+			});
+		}
+		
+	</script>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" id="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no" />
+		<!-- <title>哈哈</title> -->
+		<link href="css/common.css" rel="stylesheet" type="text/css" />
+		<link href="css/tenant.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div class="biGbox" id='box_show'>
+			<!--头部开始-->
+			<div class="header">
+				<a href="login.html" class="left">
+					<i class="iconfont">&#xe601;</i>
+				</a>
+				<div class="index-top-box2">
+					<span class="fresh-toptext1"></span>
+					<span class="fresh-topimg1"></span>
+				</div>
+				<a href="" class="top_he_right">
+					<i class="iconfont">&#xe600;</i>
+				</a>
+			</div>
+			<!-- 页面section_top -->
+			<div class="ten_top">
+				<div class="ten_top_center">
+					<a href="" class="ten_top_type">
+						拼团小程序数据平台
+						<i class="iconfont">&#xe63e;</i>
+					</a>
+					<span class="ten_de" id="delete">
+						退出
+					</span>
+				</div>
+				<a href="login.html" id="a"></a>
+			</div>
+			<!-- 页面section_conten -->
+			<div class="ten_data">
+				<div class="ten_data_center">
+					<div class="ten_data_row1">
+						<span>
+							数据范围：全部门店
+						</span>
+						<text>
+							<i class="iconfont font">&#xe65e;</i>
+							<a class="row1_right">指标解释</a>
+						</text>
+					</div>
+					<div class="shop_amount">商品售卖金额</div>
+					<div class="shop_money"></div>
+					<div class="ten_data_row2">
+						<div class="row2_left left_left">
+							<text>
+								商品售卖量
+							</text>
+							<span class="shopNum"></span>
+						</div>
+						<div class="row2_left">
+							<text>
+								待提现金额
+							</text>
+							<span class="tx_money"></span>
+						</div>
+						<div class="row2_left right_right">
+							<text>
+								可提现金额
+							</text>
+							<span class="ktx_money"></span>
+						</div>
+					</div>
+					<div class="ten_data_row2">
+						<div class="row3_left left_left3">
+							<text>
+								待核销订单数
+							</text>
+							<span class="d_check"></span>
+						</div>
+						<div class="row3_left">
+							<text>
+								已核销订单数
+							</text>
+							<span class="y_check"></span>
+						</div>
+						<div class="row3_left">
+							<text>
+								已成团数
+							</text>
+							<span class="y_group"></span>
+						</div>
+						<div class="row3_left right_right3">
+							<text>
+								未成团数
+							</text>
+							<span class="w_group"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="cash">
+
+			</div>
+
+			<div class="ten_nav"></div>
+			<div class="ten_data_nav">
+				<div class="ten_data_nav_center">
+					拼团数据信息
+				</div>
+			</div>
+			<div class="ten_data_tab" id="nav_top">
+				<div class="tab_store store_img">
+					<text class="tab_text">全部门店</text>
+					<img class="tab_img store_bottom_img" src="img/arrow-bottom2.png" />
+					<img class="tab_img store_top_img" src="img/arrow-top2.png" style="display: none;" />
+				</div>
+				<div class="tab_check check_img">
+					<text class="tab_text2">全部状态</text>
+					<img class="tab_img check_bottom_img" src="img/arrow-bottom2.png" />
+					<img class="tab_img check_top_img" src="img/arrow-top2.png" style="display: none;" />
+				</div>
+				<!-- 门店选择弹窗 -->
+				<div class="classify-list" style="display: none;" id="storelist">
+
+				</div>
+				<!-- 状态选择 -->
+				<div class="classify-list2" style="display: none;" id="stateList">
+
+				</div>
+			</div>
+
+			<!-- 评团列表数据 -->
+			<div class="ten_data_list" id="grouplist">
+
+			</div>
+
+			<!-- 租户遮罩 -->
+			<div class="delete-layer-bg" style="display: none;"></div>
+			<div class="delete-layer" style="display: none;" id="tenantList">
+
+			</div>
+			<!-- 退出遮罩成 -->
+			<div class="delete-layer-bg" style="display: none;"></div>
+			<div class="gou_out" style="display: none;">
+				<span class="out_one">提示</span>
+				<a class="out_two">是否退出此账户</a>
+				<div class="out_btn">
+					<div class="btn1">取消</div>
+					<div class="btn2">确定</div>
+				</div>
+			</div>
+			<!-- 指标解释 -->
+			<div class="delete-layer-bg" style="display: none;"></div>
+			<div class="explain" style="display: none;">
+				<div class="detail_center">
+					<img src="img/explain.png" class="explain_img" />
+				</div>
+				<div class="delete">
+					<i class="iconfont">&#xe62b;</i>
+				</div>
+			</div>
+		</div>
+		<img src="img/over.png" class="none" id="box_hide" style="display: none;" />
+	</body>
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script type="text/javascript">
+		var tenantId;
+		var orgId;
+		var stateId;
+		$(function() {
+			scrollTop()
+			tenantList()
+		});
+
+		$(".index-top-box2").click(function() {
+			$(".delete-layer-bg").show();
+			$(".delete-layer").show();
+			$("body").addClass("ovflowhide");
+			that = $(this);
+		});
+
+		$(".ten_de").click(function() {
+			$(".delete-layer-bg").show();
+			$(".gou_out").show();
+			$("body").addClass("ovflowhide");
+			that = $(this);
+		});
+
+		$(".row1_right").click(function() {
+			$(".delete-layer-bg").show();
+			$(".explain").show();
+			$("body").addClass("ovflowhide");
+			that = $(this);
+		});
+		$(".delete-layer-bg").click(function() {
+			$(".delete-layer-bg").hide();
+			$(".gou_out").hide();
+			$(".delete-layer").hide();
+			$(".explain").hide();
+			$("body").removeClass("ovflowhide");
+		});
+
+
+		$(".delete").click(function() {
+			$(".delete-layer-bg").hide();
+			$(".explain").hide();
+			$("body").removeClass("ovflowhide");
+		});
+		$(".btn1").click(function() {
+			$(".delete-layer-bg").hide();
+			$(".gou_out").hide();
+			$("body").removeClass("ovflowhide");
+		});
+		$(".btn2").click(function() {
+			$("#a").click();
+			document.getElementById("a").click();
+		})
+
+
+		$(".tab_store").click(function() {
+			$(".tab_store").addClass("tcolor-yellow");
+			$(".classify-list").slideToggle("fast", "linear", function() {
+				$(".classify-list2").hide();
+				$(".store_bottom_img").hide();
+				$(".store_top_img").show();
+				$(".check_bottom_img").show();
+				$(".check_top_img").hide();
+			});
+			$(".tab_check").removeClass("tcolor-yellow");
+		});
+		$(".tab_check").click(function() {
+			$(".tab_check").addClass("tcolor-yellow");
+			$(".classify-list2").slideToggle("fast", "linear", function() {
+				$(".classify-list").hide();
+				$(".check_bottom_img").hide();
+				$(".check_top_img").show();
+				$(".store_bottom_img").show();
+				$(".store_top_img").hide();
+			});
+			$(".tab_store").removeClass("tcolor-yellow");
+		});
+
+
+		// 吸顶悬停
+		function scrollTop() {
+			var TIMER; //定义全局变量
+			$(window).scroll(function() {
+				clearTimeout(TIMER); //必须要有这句
+				if ($(document).scrollTop() > 200) {
+					TIMER = setTimeout(function() {
+						$("#nav_top").addClass("abc");
+						$(".ten_data_nav").hide();
+					}, 500);
+				} else {
+					TIMER = setTimeout(function() {
+						$("#nav_top").removeClass("abc");
+						$(".ten_data_nav").show();
+					}, 500);
+				}
+			});
+		};
+
+
+		//选择租户
+		function tenantList() {
+			$.ajax({
+				//请求方式
+				type: 'get',
+				//发送请求的地址
+				//我这里的地址是不需要传数据的，所以没有拼接参数
+				url: 'tenantList.json',
+				//服务器返回的数据类型
+				dataType: 'json',
+				//请求成功的处理
+				success: function(data) {
+					if (data.errno == 0) {
+						var tenantData = data.data.rows;
+						var tenantId = tenantData[0].tenantId
+						$(".fresh-toptext1").html(tenantData[0].companyName)
+						//拼接字符串
+						var tenant_list = '<li class="ten_li pitch-on-cl2" tenantId="' + tenantData[0].tenantId + '" tenantName="' +
+							tenantData[0].companyName + '">' + tenantData[0].companyName +
+							'</li>';
+						//对数据做遍历，拼接到页面显示
+						for (var i = 1; i < tenantData.length; i++) {
+							tenant_list +=
+								'<li class="ten_li" tenantId="' + tenantData[i].tenantId + '" tenantName="' +
+								tenantData[i].companyName + '">' + tenantData[i].companyName + '</li>';
+
+						}
+						//放入页面的容器显示
+						$('#tenantList').html(tenant_list);
+
+						$(".ten_li").click(function() {
+							$(".delete-layer-bg").hide();
+							$(".delete-layer").hide();
+							$("body").removeClass("ovflowhide");
+							$(this).addClass("tcolor-yellow");
+							$(this).siblings(".ten_li").removeClass("tcolor-yellow");
+							$(this).siblings(".pitch-on-cl2").removeClass("pitch-on-cl2");
+							var tenantId = $(this).attr("tenantId");
+							var tenantName = $(this).attr("tenantName");
+							$(".fresh-toptext1").html(tenantName);
+							tenantMessage(tenantId)
+							groupList(tenantId)
+							storeList(tenantId)
+							stateType(tenantId)
+						});
+						tenantMessage(tenantId)
+						groupList(tenantId)
+						storeList(tenantId)
+						stateType(tenantId)
+					}
+				},
+				//请求失败的处理
+				error: function(jqXHR) {}
+			});
+		};
+		// 租户信息
+		function tenantMessage(tenantId) {
+			$.ajax({
+				type: 'get',
+				url: 'getTenantAccountMessage.json',
+				dataType: 'json',
+				data: {
+					tenantId: tenantId
+				},
+				success: function(data) {
+					if (data.errno == 0) {
+						var tenantData = data.data
+						$(".shop_money").html(tenantData.totalAmount)
+						$(".shopNum").html(tenantData.orderCount)
+						$(".tx_money").html(tenantData.waitAmount)
+						$(".ktx_money").html(tenantData.realAmount)
+						$(".d_check").html(tenantData.unCheckedCount)
+						$(".y_check").html(tenantData.checkedCount)
+						$(".y_group").html(tenantData.fishCount)
+						$(".w_group").html(tenantData.unfishCount)
+
+						var cash_ms = ''
+						cash_ms +=
+							'<a class="go_tx" tenantId="' + tenantId + '">' + '去看提现明细吧～' + '</a>';
+						$("#cash").html(cash_ms);
+						
+						$(".go_tx").click(function(){
+							var tenantId = $(this).attr("tenantId");
+							url = "cash.html?tenantId=" + tenantId;
+							console.log(url)
+							window.location.href = url;
+						})
+						
+					}
+				},
+				error: function(jqXHR) {}
+			});
+		};
+		// 列表信息
+		function groupList(tenantId, orgId, stateId) {
+			$.ajax({
+				type: 'get',
+				url: 'groupList.json',
+				dataType: 'json',
+				data: {
+					tenantId: tenantId,
+					orgId: orgId,
+					stateId: stateId
+				},
+				success: function(data) {
+					if (data.errno == 0) {
+						var listData = data.data.rows
+						if (listData.length < 1) {
+							$(".ten_data_list").hide();
+							$("#box_hide").show();
+						}
+						var group_list = '';
+						//对数据做遍历，拼接到页面显示
+						for (var i = 0; i < listData.length; i++) {
+							if (listData[i].state == 1) {
+								var state = '未开始'
+							} else if (listData[i].state == 2) {
+								var state = '进行中'
+							} else if (listData[i].state == 3) {
+								var state = '已结束'
+							} else {
+								var state = '已关闭'
+							}
+							group_list +=
+								'<div class="ten_data_list_center">' +
+								'<div class="ten_data_data">' +
+								'<div class="data_title">' +
+								listData[i].groupTitle +
+								'</div>' +
+								'<div class="data_orgname">' +
+								listData[i].orgName +
+								'</div>' +
+								'<div class="data_type">' +
+								'拼团状态' + '<a class="gr_state">' + '&nbsp;&nbsp;&nbsp;' + state + '</a>' +
+								'</div>' +
+								'<div class="data_type_num">' +
+								'<div class="finish">' + '已成团' + '<span>' + '&nbsp;&nbsp;&nbsp;' + listData[i].suGroupCount + '</span>' +
+								'</div>' +
+								'<div class="not_finish">' + '未成团数' + '<span>' + '&nbsp;&nbsp;&nbsp;' + listData[i].unGroupCount + '</span>' +
+								'</div>' +
+								'</div>' +
+								'<div class="data_type_num2">' +
+								'<div class="order_num">' + '订单数' + '<span>' + '&nbsp;&nbsp;&nbsp;' + listData[i].orderCount + '</span>' +
+								'</div>' +
+								'<div class="amount">' + '收入总金额' + '<span>' + '&nbsp;&nbsp;&nbsp;' + listData[i].totalAmount + '</span>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'<a class="check" title="' + listData[i].groupTitle + '" orgname="' + listData[i].orgName + '" groupId="' +
+								listData[i].groupId + '">' + '查看' + '</a>' +
+								'</div>';
+							$("#grouplist").html(group_list);
+							// 跳转查看详情
+							$(".check").on("click", function() {
+								var title = $(this).attr("title");
+								var orgname = $(this).attr("orgname");
+								var groupId = $(this).attr("groupId");
+								url = "detail.html?title=" + title + "&orgname=" + orgname + '&groupId=' + groupId;
+								window.location.href = url;
+							});
+						}
+
+					}
+				},
+				error: function(jqXHR) {}
+			});
+		};
+		// 门店选择
+		function storeList(tenantId, orgId, stateId) {
+			$.ajax({
+				type: 'get',
+				url: 'findOrgList.json',
+				dataType: 'json',
+				data: {
+					tenantId: tenantId
+				},
+				success: function(data) {
+					if (data.errno == 0) {
+						var storeData = data.data.rows
+						var store_list = '<span class="classify-list-text1 pitch-on-cl" orgId="' + 0 + '" orgname="' + '全部门店' + '">' +
+							'全部门店' +
+							'</span>'
+						for (var i = 0; i < storeData.length; i++) {
+							store_list +=
+								'<span class="classify-list-text1" orgId="' + storeData[i].orgid + '" orgname="' + storeData[i].orgname +
+								'">' + storeData[i].orgname +
+								'</span>';
+						}
+						$("#storelist").html(store_list);
+						// 门店弹窗
+						$(".classify-list-text1").click(function() {
+							$(".store_bottom_img").show();
+							$(".store_top_img").hide();
+							$(".classify-list").slideToggle();
+							$(".tab_store").removeClass("tcolor-yellow");
+							$(this).addClass("pitch-on-cl");
+							$(this).siblings(".classify-list-text1").removeClass("tcolor-yellow");
+							$(this).siblings(".pitch-on-cl").removeClass("pitch-on-cl");
+							var orgId = $(this).attr("orgId");
+							var orgname = $(this).attr("orgname");
+							$(".tab_text").html(orgname);
+							groupList(tenantId, orgId, stateId)
+						});
+					}
+				},
+				error: function(jqXHR) {}
+			});
+		};
+		// 状态选择
+		function stateType(tenantId, orgId, stateId) {
+			var stateList = ''
+			stateList += '<span class="classify-list-text2 pitch-on-cl" stateId="' + 0 + '" typename="' + '全部状态' + '">' + '全部状态' +
+				'</span>' +
+				'<span class="classify-list-text2 " stateId="' + 1 + '" typename="' + '未开始' + '">' + '未开始' + '</span>' +
+				'<span class="classify-list-text2" stateId="' + 2 + '" typename="' + '进行中' + '">' + '进行中' + '</span>' +
+				'<span class="classify-list-text2" stateId="' + 3 + '" typename="' + '已完成' + '">' + '已完成' + '</span>' +
+				'<span class="classify-list-text2" stateId="' + 4 + '" typename="' + '已关闭' + '">' + '已关闭' + '</span>';
+
+			$("#stateList").html(stateList);
+
+			$(".classify-list-text2").click(function() {
+				$(".check_bottom_img").show();
+				$(".check_top_img").hide();
+				$(".classify-list2").slideToggle();
+				$(".tab_check").removeClass("tcolor-yellow");
+				$(this).addClass("pitch-on-cl");
+				$(this).siblings(".classify-list-text2").removeClass("tcolor-yellow");
+				$(this).siblings(".pitch-on-cl").removeClass("pitch-on-cl");
+				var typename = $(this).attr("typename");
+				var stateId = $(this).attr("stateId");
+				$(".tab_text2").html(typename);
+				groupList(tenantId, orgId, stateId)
+			});
+
+		}
+	</script>
+</html>

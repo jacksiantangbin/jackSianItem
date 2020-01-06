@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" id="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no" />
+		<!-- <title>哈哈</title> -->
+		<link href="css/common.css" rel="stylesheet" type="text/css" />
+		<link href="css/detail.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div class="biGbox">
+			<!--头部开始-->
+			<div class="header">
+				<a href="tenant.html" class="left">
+					<i class="iconfont">&#xe601;</i>
+				</a>
+				拼团详情
+				<a href="" class="top_he_right">
+					<i class="iconfont">&#xe600;</i>
+				</a>
+			</div>
+			<!-- 详情section -->
+			<div class="de_top">
+				<div class="de_top_center">
+					<div class="de_title"></div>
+					<div class="de_orgname"></div>
+				</div>
+				<div class="de_box">
+					<div class="de_box_row">
+						<div class="row1">
+							<text class="aa">拼团类型</text>
+							<text class="bb lx"></text>
+						</div>
+						<div class="row2">
+							<text class="aa">拼团状态</text>
+							<text class="bb zt"></text>
+						</div>
+					</div>
+					<div class="de_box_row">
+						<div class="row1">
+							<text class="aa">拼团价格</text>
+							<text class="jg"></text>
+						</div>
+						<div class="row2">
+							<text class="aa">收入总金额</text>
+							<text class="zje"></text>
+						</div>
+					</div>
+					<div class="de_box_row">
+						<div class="row1">
+							<text class="aa">已成团</text>
+							<text class="yct"></text>
+						</div>
+						<div class="row2">
+							<text class="aa">未成团数</text>
+							<text class="wct"></text>
+						</div>
+					</div>
+					<div class="de_box_row">
+						<div class="row1">
+							<text class="aa">订单数</text>
+							<text class="ddd"></text>
+						</div>
+						<div class="order_check_num">
+							<text class="aa">待核销订单数</text>
+							<text class="bb cance"></text>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="de_tab">
+				<div class="tab_tab">团列表</div>
+				<div class="tab_list">
+					<text class="tab_text">全部状态</text>
+					<img class="tab_img check_bottom_img" src="img/arrow-bottom2.png" />
+					<img class="tab_img check_top_img" src="img/arrow-top2.png" style="display: none;" />
+				</div>
+				<!-- 全部状态遮罩 -->
+				<div class="delete-layer-bg" style="display: none;"></div>
+				<div class="delete-layer" style="display: none;">
+					<li class="ten_li pitch-on-cl" ac_state="-2" ac_name="全部状态">全部状态</li>
+					<li class="ten_li" ac_state="-1" ac_name="未完成">未完成</li>
+					<li class="ten_li" ac_state="0" ac_name="进行中">进行中</li>
+					<li class="ten_li" ac_state="1" ac_name="已完成">已完成</li>
+				</div>
+			</div>
+			<!-- 列表数据 -->
+			<div class="co_list" id="group_activity">
+
+			</div>
+			<!-- 遮罩查看团详情 -->
+			<div class="delete-layer-bg-check" style="display: none;"></div>
+			<div class="list_detail" style="display: none;">
+				<div class="detail_center">
+					<div class="detail_one">
+						<text>团状态</text><text class="de_type"></text>
+					</div>
+					<div class="two_box" id="activityList">
+
+					</div>
+				</div>
+				<div class="delete">
+					<i class="iconfont">&#xe62b;</i>
+				</div>
+			</div>
+			<!-- 遮罩订单数 -->
+			<div class="delete-layer-bg-check" style="display: none;"></div>
+			<div class="list_order" style="display: none;">
+				<div class="detail_center2">
+					<div id="demoContent">
+
+					</div>
+					<div class="footer_page">
+						<ul class="page" id="page"></ul>
+					</div>
+				</div>
+				<div class="delete">
+					<i class="iconfont">&#xe62b;</i>
+				</div>
+			</div>
+		</div>
+		<img src="img/over.png" class="none" id="box_hide" style="display: none;" />
+	</body>
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="js/detail.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+		var result;
+		$(function() {
+			optionsData()
+		});
+
+		function optionsData() {
+			var title = $.Request("title");
+			var orgname = $.Request("orgname");
+			var groupId = $.Request("groupId");
+			groupDetail(groupId)
+			stateType(groupId)
+		}
+		//
+		function stateType(groupId){
+			$(".tab_list").click(function() {
+				$(".tab_text").addClass("tcolor-yellow");
+				$(".delete-layer").slideToggle("fast", "linear", function() {
+					$(".check_bottom_img").hide();
+					$(".check_top_img").show();
+				});
+			});
+			$(".ten_li").click(function() {
+				$(".check_bottom_img").show();
+				$(".check_top_img").hide();
+				$(".delete-layer").slideToggle();
+				$(".tab_text").removeClass("tcolor-yellow");
+				$(this).addClass("tcolor-yellow");
+				$(this).siblings(".ten_li").removeClass("tcolor-yellow");
+				$(this).siblings(".pitch-on-cl").removeClass("pitch-on-cl");
+				
+				var stateId = $(this).attr("ac_state");
+				var stateName = $(this).attr("ac_name");
+				$(".tab_text").html(stateName)
+				groupActivityList(groupId,stateId)
+			});
+		};
+		
+
+
+
+		// 订单／查看
+
+		$(".order_check_num").click(function() {
+			$(".delete-layer-bg-check").show();
+			$(".list_order").show();
+			$("body").addClass("ovflowhide");
+			$(".delete-layer").hide();
+			that = $(this);
+		});
+		$(".delete-layer-bg-check").click(function() {
+			$(".delete-layer-bg-check").hide();
+			$(".list_detail").hide();
+			$(".list_order").hide();
+			$("body").removeClass("ovflowhide");
+		});
+		$(".delete").click(function() {
+			$(".delete-layer-bg-check").hide();
+			$(".list_detail").hide();
+			$(".list_order").hide();
+			$("body").removeClass("ovflowhide");
+		});
+
+		// 团详情
+		function groupDetail(groupId) {
+			$.ajax({
+				type: 'get',
+				url: 'getGroupDetail.json',
+				dataType: 'json',
+				data: {
+					groupId: groupId
+				},
+				success: function(data) {
+					if (data.errno == 0) {
+						var groupData = data.data.group
+						var groupId = data.data.group.groupId
+						if (groupData.groupType == 1) {
+							$(".lx").html('拉新团')
+						} else if (groupData.groupType == 2) {
+							$(".lx").html('日常团')
+						} else if (groupData.groupType == 3) {
+							$(".lx").html('免单团')
+						} else {
+							$(".lx").html('阶梯团')
+						}
+						if (groupData.state == 1) {
+							$(".zt").html('未开始')
+						} else if (groupData.state == 2) {
+							$(".zt").html('进行中')
+						} else if (groupData.state == 3) {
+							$(".zt").html('已结束')
+						} else {
+							$(".zt").html('已关闭')
+						}
+						if (groupData.state == 4) {
+							$(".jg").html('¥' + '&nbsp;' + groupData.groupPrice)
+						} else {
+							$(".jg").html('¥' + '&nbsp;' + groupData.minPrice + '~' + groupData.maxPrice)
+						}
+						$(".zje").html(groupData.totalAmount)
+						$(".yct").html(groupData.suGroupCount)
+						$(".wct").html(groupData.unGroupCount)
+						$(".ddd").html(groupData.orderCount)
+						$(".cance").html(groupData.unCheckedCount)
+						$(".de_title").html(groupData.groupTitle)
+						$(".de_orgname").html(groupData.orgName)
+						groupActivityList(groupId)
+						checkOrder(groupId)
+					}
+				},
+				error: function(jqXHR) {}
+			});
+		};
+
+		// 核销订单
+		function checkOrder(groupId) {
+			$.ajax({
+				type: 'get',
+				url: 'orderCheck.json',
+				dataType: 'json',
+				data: {
+					groupId: groupId
+				},
+				async: false,
+				success: function(data) {
+					if (data.errno == 0) {
+						var result = data.data.rows
+						var options = {
+							"id": "page", //显示页码的元素
+							"data": result, //显示数据
+							"maxshowpageitem": 5, //最多显示的页码个数
+							"pagelistcount": 4, //每页显示数据个数
+							"callBack": function(result) {
+								var cHtml = "";
+								for (var i = 0; i < result.length; i++) {
+									if (result[i].orderState == 0) {
+										var orderState = '待付款'
+									} else if (result[i].orderState == 1) {
+										var orderState = '支付失败'
+									} else if (result[i].orderState == 2) {
+										var orderState = '待核销'
+									} else if (result[i].orderState == 9) {
+										var orderState = '已取消'
+									} else if (result[i].orderState == 10) {
+										var orderState = '已完成'
+									}
+
+									cHtml += '<div class="detail_two">' +
+										'<div class="de_head_img">' +
+										'<img src="' + result[i].avatarUrl + '" class="head_img" />' +
+										'</div>' +
+										'<div class="de_se">' +
+										'<div class="de_se_li">' +
+										'<text class="de_name">' + result[i].nickName + '<span>' + '</span>' + '</text>' +
+										'<a class="de_phone" href="tel:' + result[i].wxPhone + '">' + result[i].wxPhone + '</a>' +
+										'</div>' +
+										'<div class="de_se_li">' +
+										'<text>' + '订单状态' + '</text>' + '<text class="de_type2">' + orderState + '</text>' +
+										'<text>' + '支付金额' + '</text>' + '<text class="de_type2">' + result[i].realAmount + '</text>' +
+										'</div>' +
+										'</div>' +
+										'</div>';
+
+								}
+								$("#demoContent").html(cHtml); //将数据增加到页面中
+							}
+						};
+						page.init(result.length, 1, options);
+					}
+				},
+				error: function(jqXHR) {},
+			});
+		};
+
+		// 分页
+
+		// 团活动列表
+		function groupActivityList(groupId,stateId) {
+			$.ajax({
+				//请求方式
+				type: 'get',
+				url: 'groupActivityList.json',
+				dataType: 'json',
+				data: {
+					groupId: groupId,
+					stateId:stateId
+				},
+				success: function(data) {
+					if (data.errno == 0) {
+						var group_activity = data.data.rows;
+						var group_ac_list = '';
+						if (group_activity.length < 1) {
+							$(".co_list").hide();
+							$("#box_hide").show();
+						}
+						for (var i = 0; i < group_activity.length; i++) {
+
+							if (group_activity[i].activityState == -1) {
+								var activityState = '未完成'
+							} else if (group_activity[i].activityState == 0) {
+								var activityState = '进行中'
+							} else if (group_activity[i].activityState == 1) {
+								var activityState = '已完成'
+							}
+
+							group_ac_list +=
+								'<div class="co_list_center">' +
+								'<div class="co_box">' +
+								'<div class="name">' + '<div class="name1">' + group_activity[i].nickName + '</div>' + '<span>' +
+								'&nbsp;&nbsp;' + '（团长）' + '</span>' + '</div>' +
+								'<div class="co_de">' +
+								'<div>' +
+								'<text>' + '参团人数' + '</text>' +
+								'<text>' + '&nbsp;&nbsp;' + group_activity[i].personCount + '</text>' +
+								'</div>' +
+								'<div>' +
+								'<text>' + '团状态' + '</text>' +
+								'<text class="dd">' + activityState + '</text>' +
+								'</div>' +
+								'</div>' +
+								'<div class="check" groupActivityId="'+group_activity[i].groupActivityId+'">' +
+								'查看' +
+								'</div>' +
+								'</div>' +
+								'</div>';
+						}
+						$('#group_activity').html(group_ac_list);
+
+						$(".check").click(function() {
+							$(".delete-layer-bg-check").show();
+							$(".list_detail").show();
+							$("body").addClass("ovflowhide");
+							var gr_state = $(".dd").text();
+							$(".de_type").html(gr_state)
+							var groupActivityId = $(this).attr("groupActivityId");
+							// that = $(this);
+							seeActivity(groupId, groupActivityId)
+						});
+						
+					}
+				},
+				error: function(jqXHR) {}
+			});
+		};
+
+		// 查看团活动
+		function seeActivity(groupId, groupActivityId) {
+			$.ajax({
+				//请求方式
+				type: 'get',
+				url: 'orderActivity.json',
+				dataType: 'json',
+				data: {
+					groupId: groupId,
+					groupActivityId: groupActivityId
+				},
+				success: function(data) {
+					if (data.errno == 0) {
+						var gr_state = ''
+						var activity_list = data.data.rows;
+						var ac_list = ''
+						for (var i = 0; i < activity_list.length; i++) {
+
+							if (activity_list[i].orderState == 0) {
+								var orderState = '待付款'
+							} else if (activity_list[i].orderState == 1) {
+								var orderState = '支付失败'
+							} else if (activity_list[i].orderState == 2) {
+								var orderState = '待核销'
+							} else if (activity_list[i].orderState == 9) {
+								var orderState = '已取消'
+							} else if (activity_list[i].orderState == 10) {
+								var orderState = '已完成'
+							}
+							if (activity_list[i].wxUserId == activity_list[i].creatUserId) {
+								var result_tuanz = '(团长)'
+							} else {
+								var result_tuanz = '(团员)'
+							}
+							ac_list += '<div class="detail_two">' +
+								'<div class="de_head_img">' +
+								'<img src="' + activity_list[i].avatarUrl + '" class="head_img" />' +
+								'</div>' +
+								'<div class="de_se">' +
+								'<div class="de_se_li">' +
+								'<text class="de_name2">' + activity_list[i].nickName +
+								'</text>' +
+								'<span>' + result_tuanz + '</span>' +
+								'<a class="de_phone" href="tel:' + activity_list[i].wxPhone + '">' + activity_list[i].wxPhone + '</a>' +
+								'</div>' +
+								'<div class="de_se_li">' +
+								'<text>' + '订单状态' + '</text>' + '<text class="de_type2">' + orderState + '</text>' +
+								'<text>' + '支付金额' + '</text>' + '<text class="de_type2">' + activity_list[i].realAmount + '</text>' +
+								'</div>' +
+								'</div>' +
+								'</div>';
+						}
+						$('#activityList').html(ac_list);
+					}
+				},
+				error: function(jqXHR) {}
+			});
+		}
+	</script>
+</html>
