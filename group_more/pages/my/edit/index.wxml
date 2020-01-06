@@ -1,0 +1,36 @@
+<view class='content'>
+  <view class='top'>
+    <image src='{{avatarUrl}}'></image>
+  </view>
+  <view class='bottom'>
+    <view class='nav'>
+      <view class='navTab'></view>微信昵称
+    </view>
+    <view class='name'>{{nickName}}</view>
+    <view class='nav'>
+      <view class='navTab'></view>用户姓名
+    </view>
+    <input class='name_input' type='text' maxlength="3" value='{{my_name}}' bindinput="blurName" placeholder='请输入姓名'></input>
+    <view class='nav'>
+      <view class='navTab'></view>性别
+    </view>
+    <radio-group class="radio-group" bindchange="radioChange">
+    <radio class="radio" value="1" checked="{{checked2}}" color=' #000000 '>
+        <text>男</text>
+      </radio>
+      <radio class="radio" value="0" checked="{{checked1}}" color=' #000000 '>
+        <text>女</text>
+      </radio>
+    </radio-group>
+    <view class='nav'>
+      <view class='navTab'></view>手机号
+    </view>
+   <view class='bo'>
+     <view class='phone_input'>{{phone}}</view>
+    <view class='phoneBtn' bindtap='bindPhone'>更换手机号</view>
+   </view>
+  </view>
+  <view class='footer' bindtap='my_center'>
+  保存
+  </view>
+</view>

@@ -1,0 +1,58 @@
+{
+  "pages": [
+   
+    "pages/store/groupIndex/index",
+    "pages/groupPage/index",
+    
+    "pages/store/groupLogin/index",
+    "pages/index/index",
+    "pages/share/shareCode2/index",
+    "pages/logs/logs",
+    "pages/my/index/index",
+    "pages/my/introduce/us/index",
+    "pages/my/introduce/propaganda/index",
+    "pages/my/introduce/index/index",
+    "pages/my/introduce/opinion/index",
+    "pages/my/edit/login/index",
+    "pages/my/edit/index",
+    "pages/my/edit/phonenum/index",
+    "pages/my/bindPhone/index",
+    "pages/my/information/index/index",
+    "pages/my/membership/consumption/index",
+    "pages/my/membership/index/index",
+    "pages/my/membership/login/index",
+    "pages/my/membership/card/index",
+    "pages/my/myVip/index",
+    "pages/my/vipCard/index",
+    "pages/order/detail/paydetail/detail",
+    "pages/order/detail/consumedetail/detail",
+    "pages/order/detail/evaluatedetail/detail",
+    "pages/order/detail/refunddetail/detail",
+    "pages/order/index/index",
+    "pages/activity/groupdetail/index",
+    "pages/activity/groupdetail/lumpDetail/lumpDetailIndex",
+    "pages/activity/groupList/index",
+    "pages/pay/result/payResult",
+    "pages/pay/result2/payResult",
+    "pages/pay/result3/payResult",
+    "pages/pay/item4/itemPay",
+    "pages/pay/item4_step/itemPay",
+    "pages/pay/item4_zero/itemPay",
+    
+    "pages/store/list/index",
+    "pages/store/pic/index",
+    "pages/share/shareIndex/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "美客拼团",
+    "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置展示"
+    }
+  },
+  "sitemapLocation": "sitemap.json"
+}

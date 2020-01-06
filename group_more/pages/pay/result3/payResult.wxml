@@ -1,0 +1,55 @@
+<view class='content'>
+  <view class='section'>
+   <view class='row1'>
+      支付金额
+      <text class='item_price'>￥{{lastPrice}}</text>
+    </view>
+    <view class='row2'>
+      项目名称
+      <text class='item_name'>{{title}}</text>
+    </view>
+    <view class='row3'>
+      订单号
+      <text class='order_num'>{{orderCode}}</text>
+    </view>
+    <view class='result'>
+      <image src='{{resultImg}}' mode="aspectFill"></image>
+      <view class='txt'>支付成功</view>
+    </view>
+  </view>
+  <view class='nav'></view>
+  <view class='lists_content'>
+    <view class='lump_content'>
+      <view class='section_content_left'>
+        <view class='content_left_top'>
+          <!-- <text class='left_top_person'>发起人{{person}}</text> -->
+          <text class='left_top_lump'>还差{{personNum}}人拼团成功</text>
+        </view>
+        <view class='content_right_bottom'>
+          <view class='tui-countdown-content' wx:for="{{countDownList}}" wx:key="countDownList">
+            剩余时间
+            <text class='tui-conutdown-box'>{{item.hou}}</text>:
+            <text class='tui-conutdown-box'>{{item.min}}</text>:
+            <text class='tui-conutdown-box tui-countdown-bg'>{{item.sec}}</text>
+          </view>
+        </view>
+        <view class='content_left_bottom'>
+          <view class='big'>
+            <image src='{{big}}'></image>
+          </view>
+          <view class='small'>
+            <image src='{{small1}}'></image>
+            <image src='{{small2}}'></image>
+            <image src='{{person_over}}'></image>
+            <image src='{{person_over}}'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='btn'>
+      <button class='left_btn' bindtap='navigateToBespeak'>查看订单</button> 
+      <button class='right_btn' id="shareBtn" open-type="share" type="primary" hover-class="other-button-hover">邀请好友参团</button> 
+    </view>
+    <view class='footer' bindtap='bespokeDetail'>进行预约</view>
+  </view>
+</view>

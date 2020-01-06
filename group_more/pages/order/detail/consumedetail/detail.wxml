@@ -1,0 +1,116 @@
+<wxs module="filters" src="../../../../utils/util.wxs"></wxs>
+<view class='content'>
+  <view class='section'>
+    <view class='top'>
+      <view class='center'>
+        <image src='{{apiOrderBean.itemCoverageImage}}' mode="aspectFill"></image>
+        <view class='center_right'>
+          <view class='name' wx:if='{{apiOrderBean.orderSource == 1}}'>{{apiOrderBean.itemTitle}}</view>
+          <view class='name' wx:if='{{apiOrderBean.orderSource == 2}}'>{{apiOrderBean.groupTitle}}</view>
+          <view class='name' wx:if='{{apiOrderBean.orderSource == 3}}'>{{apiOrderBean.activityTitle}}</view>
+          <!-- <view class='storeName'>{{apiOrderBean.storeNames}}</view> -->
+          <!-- <view class='address'>
+            <text>店铺地址 </text>{{apiOrderBean.storeAddress}}</view> -->
+
+
+          <view class='address' wx:if='{{apiOrderBean.orderSource != 1}}'>
+            <text>适用门店 </text>{{apiOrderBean.storeNames}}</view>
+
+          <view class='price' wx:if='{{apiOrderBean.orderSource == 1}}'>
+            <text>价格 </text>￥{{apiOrderBean.standardPrice}}
+          </view>
+          <view class='price' wx:if='{{apiOrderBean.orderSource == 2}}'>
+            <text>价格 </text>￥{{apiOrderBean.groupPrice}}
+            <!-- <text class='oldPrice'>原价 ￥{{apiOrderBean.standardPrice}}</text> -->
+          </view>
+          <view class='price' wx:if='{{apiOrderBean.orderSource == 3}}'>
+            <text>价格 </text>￥{{apiOrderBean.activityPrice}}
+            <!-- <text class='oldPrice'>原价 ￥{{apiOrderBean.standardPrice}}</text> -->
+          </view>
+        </view>
+      </view>
+      <view class='pin' wx:if='{{apiOrderBean.isGroup == 1}}'>拼</view>
+      <view class='cu' wx:if='{{apiOrderBean.isActivity == 1}}'>促</view>
+    </view>
+  </view>
+  <view class='nav'></view>
+  <view class='bottom_bottom'>
+    <view class='one'>
+      <view class='left'>订单编号</view>
+      <view class='right'>{{apiOrderBean.orderCode}}</view>
+    </view>
+    <view class='one'>
+      <view class='left'>订单时间</view>
+      <view class='right'>{{apiOrderBean.orderTime}}</view>
+    </view>
+    <!-- <view class='one'>
+      <view class='left'>服务人员</view>
+      <view class='right'>{{apiOrderBean.staffName}}</view>
+    </view>
+    <view class='one'>
+      <view class='left'>预约时间</view>
+      <view class='right'>{{apiOrderBean.bespeakDate}}</view>
+    </view> -->
+    <view class='one'>
+      <view class='left'>合计</view>
+      <view class='right'>￥{{filters.toFix(apiOrderBean.couponAmount + apiOrderBean.beautyCoin + apiOrderBean.shareAmount + apiOrderBean.realAmount)}}</view>
+    </view>
+    <!-- <view class='one'>
+      <view class='left'>红包支付</view>
+      <view class='right'>￥{{apiOrderBean.redAmount}}</view>
+    </view> -->
+    <!-- <view class='one'>
+      <view class='left'>分享金支付</view>
+      <view class='right'>￥{{apiOrderBean.shareAmount}}</view>
+    </view> -->
+    <!-- <view class='one' wx:if='{{apiOrderBean.orderSource == 1}}'>
+      <view class='left'>优惠折扣</view>
+      <view class='right'>￥{{apiOrderBean.couponAmount + apiOrderBean.beautyCoin}}</view>
+    </view> -->
+    <view class='one'>
+      <view class='left'>实际支付</view>
+      <view class='right'>￥{{apiOrderBean.realAmount}}</view>
+    </view>
+    <view class='one'>
+      <view class='left'>支付方式</view>
+      <view class='right' wx:if='{{apiOrderBean.payType == 1}}'>微信</view>
+      <view class='right' wx:if='{{apiOrderBean.payType == 2}}'>到店</view>
+    </view>
+    <view class='one' wx:if='{{apiOrderBean.orderSource == 2}}'>
+      <view class='left'>拼团类型</view>
+      <view class='right' wx:if='{{apiOrderBean.groupType ==1}}'>拉新团</view>
+      <view class='right' wx:if='{{apiOrderBean.groupType ==2}}'>日常团</view>
+      <view class='right' wx:if='{{apiOrderBean.groupType ==3}}'>免单团</view>
+      <view class='right' wx:if='{{apiOrderBean.groupType ==4}}'>阶梯团</view>
+    </view>
+    <view class='one' wx:if='{{orderState == 10}}'>
+      <view class='lefts'>订单已完成</view>
+    </view>
+  </view>
+  <view class='footer' wx:if='{{apiOrderBean.orderState == 2}}'>
+    <view class='nav2'></view>
+    <view class='footer_bottom'>
+      <view class='left'> </view>
+      <view class='center'></view>
+      <view class='right' bindtap='my_bespokedetail' data-order-Id='{{apiOrderBean.orderId}}'>去核销</view>
+    </view>
+  </view>
+</view>
+
+<!--弹窗-->
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog" wx:if="{{showModal}}">
+  <view class="modal-title">是否核销此订单！</view>
+  <view class="modal-footer">
+    <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+    <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+  </view>
+</view>
+
+<!-- <view bindtap='hide' class="Zhezhao  {{isTrue?'isShow':'isHide'}}">
+  <view class='ZhezhaoContent'>
+    <image src='{{success}}' mode="aspectFill"></image>
+    <text class='txt'>取消成功</text>
+    <text class='txt2'>在我的预约 - 待预约中可重新申请</text>
+  </view>
+</view> -->

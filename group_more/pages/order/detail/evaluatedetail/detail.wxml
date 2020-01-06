@@ -1,0 +1,91 @@
+<wxs module="filters" src="../../../../utils/util.wxs"></wxs>
+<view class='content'>
+  <view class='section'>
+    <view class='top'>
+      <view class='center'>
+        <image src='{{apiOrderBean.itemCoverageImage}}' mode="aspectFill"></image>
+        <view class='center_right'>
+          <view class='name' wx:if='{{apiOrderBean.orderSource == 1}}'>{{apiOrderBean.itemTitle}}</view>
+          <view class='name' wx:if='{{apiOrderBean.orderSource == 2}}'>{{apiOrderBean.groupTitle}}</view>
+          <view class='name' wx:if='{{apiOrderBean.orderSource == 3}}'>{{apiOrderBean.activityTitle}}</view>
+          <view class='storeName'>{{apiOrderBean.storeNames}}</view>
+          <view class='address'>
+            <text>店铺地址 </text>{{apiOrderBean.storeAddress}}</view>
+          
+          <view class='price' wx:if='{{apiOrderBean.orderSource == 2}}'>
+            <text>价格 </text>￥{{apiOrderBean.groupPrice}}
+          </view>
+          <view class='price' wx:if='{{apiOrderBean.orderSource == 3}}'>
+            <text>价格 </text>￥{{apiOrderBean.activityPrice}}
+          </view>
+        </view>
+      </view>
+      <view class='pin' wx:if='{{apiOrderBean.isGroup == 1}}'>拼</view>
+      <view class='cu' wx:if='{{apiOrderBean.isActivity == 1}}'>促</view>
+    </view>
+  </view>
+  <view class='nav'></view>
+  <view class='bottom'>
+    <view class='one'>
+      <view class='left'>订单编号</view>
+      <view class='right'>{{apiOrderBean.orderCode}}</view>
+    </view>
+    <view class='one'>
+      <view class='left'>订单时间</view>
+      <view class='right'>{{apiOrderBean.orderTime}}</view>
+    </view>
+    <view class='one' wx:if='{{display != 0}}'>
+      <view class='left'>服务人员</view>
+      <view class='right'>{{apiOrderBean.staffName}}</view>
+    </view>
+    <view class='one' wx:if='{{display != 0}}'>
+      <view class='left'>预约时间</view>
+      <view class='right'>{{apiOrderBean.bespeakDate}}</view>
+    </view>
+    <view class='one'>
+      <view class='left'>合计</view>
+      <view class='right'>￥{{filters.toFix(apiOrderBean.couponAmount + apiOrderBean.beautyCoin + apiOrderBean.shareAmount + apiOrderBean.realAmount)}}</view>
+    </view>
+    <!-- <view class='one'>
+      <view class='left'>分享金支付</view>
+      <view class='right'>￥{{apiOrderBean.shareAmount}}</view>
+    </view> -->
+    <!-- <view class='one' wx:if='{{apiOrderBean.orderSource == 1}}'>
+      <view class='left'>优惠折扣</view>
+      <view class='right'>￥{{apiOrderBean.couponAmount + apiOrderBean.beautyCoin}}</view>
+    </view> -->
+    <view class='one'>
+      <view class='left'>实际支付</view>
+      <view class='right'>￥{{apiOrderBean.realAmount}}</view>
+    </view>
+    <view class='one'>
+      <view class='left'>支付方式</view>
+      <view class='right' wx:if='{{apiOrderBean.payType == 1}}'>微信</view>
+      <view class='right' wx:if='{{apiOrderBean.payType == 2}}'>到店</view>
+    </view>
+    <view class='one' wx:if='{{apiOrderBean.orderSource == 2}}'>
+      <view class='left'>拼团类型</view>
+      <view class='right' wx:if='{{apiOrderBean.groupType ==1}}'>拉新团</view>
+      <view class='right' wx:if='{{apiOrderBean.groupType ==2}}'>日常团</view>
+      <view class='right' wx:if='{{apiOrderBean.groupType ==3}}'>免单团</view>
+      <view class='right' wx:if='{{apiOrderBean.groupType ==4}}'>阶梯团</view>
+    </view>
+    <!-- <view class='one'>
+      <view class='left'>{{orderLump}}</view>
+      <view class='right'>{{orderLumptype}}</view>
+    </view>
+    <view class='one'>
+      <view class='left'>还差{{orderperson}}人拼团成功</view>
+      <view class='right'>剩余时间 {{orderOvertime}}</view>
+    </view> -->
+  </view>
+  <view class='footer'>
+    <view class='nav2'></view>
+    <view class='footer_bottom'>
+      <view class='left'> </view>
+      <view class='center'></view>
+      <view class='right' bindtap='publish_evaluate' data-order-Id='{{apiOrderBean.orderId}}' data-order-Source='{{apiOrderBean.orderSource}}' data-title='{{apiOrderBean.groupTitle}}' data-store='{{apiOrderBean.storeNames}}' data-price='{{apiOrderBean.groupPrice}}'
+        data-standardPrice='{{apiOrderBean.standardPrice}}' data-itemId='{{apiOrderBean.itemId}}' data-staffId='{{apiOrderBean.staffId}}' data-orgId='{{apiOrderBean.orgId}}'>去评价</view>
+    </view>
+  </view>
+</view>

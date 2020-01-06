@@ -1,0 +1,71 @@
+.box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.top {
+width:100%;
+height:460rpx;
+text-align:center;
+background:-webkit-linear-gradient(left, #71D6F7, #307FD2);
+}
+
+.headImg {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  margin: 100rpx auto 0;
+  background: #eee;
+}
+
+.edit {
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.myName {
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 20rpx;
+  font-size: 36rpx;color: #353535;
+}
+.bd_vip{
+  width: 300rpx;
+  height: 70rpx;
+  border-radius: 70rpx;
+  background: #fff;
+  font-size: 32rpx;color: #353535;
+  text-align: center;
+  line-height: 70rpx;
+  margin: 0 auto;
+  margin-top: 20rpx;
+}
+.bottom{
+  width: 100%;
+  margin: 40rpx auto 0;
+}
+.aaa{
+  display: flex;
+  width: 670rpx;
+  justify-content: space-between;
+  align-items: center;
+  color:#353535;
+  font-size: 28rpx;
+  margin: 0 auto;
+  margin-bottom: 20rpx;
+  border-bottom: 2rpx solid #eee;
+}
+
+.address_no{
+  display: flex;
+  align-items: center;
+}
+.address_no .ic_txt{
+  margin-left: 20rpx;
+}

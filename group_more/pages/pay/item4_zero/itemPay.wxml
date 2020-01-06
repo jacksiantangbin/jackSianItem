@@ -1,0 +1,84 @@
+<view class='content'>
+  <view class='ze_section'>
+    <view class='ze_top'>
+      <view class='ze_center'>
+        <image src='{{wx}}' mode='aspectFill'></image>
+        <view class='za_ce_right'>
+          <view class='ze_title'>上并不充分</view>
+          <view class='ze_bottom'>
+            <view class='ze_price'>
+              9999
+              <text>899</text>
+            </view>
+            <view class='store_group3'>
+              <image src='{{yellow_fire}}' class='fire'></image>
+              免单团
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='ze_re'>
+      *免单团长0元开团后,需在团时间内凑够人数，团长才可享受免单。
+    </view>
+    <view class="st_se">
+      <view class="st_top">
+        <view class="st_co"></view>适用门店
+      </view>
+      <view class='st_st'>
+        <view class="st_le" bindtap='getLocation' data-address='{{storeDetail.address}}' data-lat='{{storeDetail.lat}}' data-lon='{{storeDetail.lon}}' data-name='{{storeDetail.orgName}}'>
+          <view class='top_store'>
+            <view class='flex'>
+              <view class='sd'>
+                <icon class="iconfont icon-dianpu1"></icon>
+              </view>
+              <text class='store_names'>{{storeDetail.orgName}}</text>
+            </view>
+          </view>
+          <view class='top_store'>
+            <view class='flex'>
+              <view class='sd'>
+                <icon class="iconfont icon-dingwei3"></icon>
+              </view>
+              <text class='store_names' wx:if='{{storeDetail.address}}'>{{storeDetail.address}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="st_rg" catchtap='telPhone' data-phone='{{storeDetail.telephone}}'>
+          <icon class="iconfont icon-dianhua1"></icon>
+        </view>
+      </view>
+    </view>
+<view class='nav'></view>
+    <view class='pay_list'>
+      <view class="st_top">
+        <view class="st_co"></view>支付方式
+      </view>
+      <view class='wx'>
+        <view class='display'>
+          <!-- <image src='{{wx}}' mode="aspectFill"></image> -->
+          <icon class="iconfont icon-weixinzhifu"></icon>
+          <view class='pay_title'>微信支付</view>
+        </view>
+        <view class='fuli'>
+          <radio-group name="fl" bindchange='wx_pay'>
+            <label>
+              <radio value="微信支付" checked="{{checked}}"></radio>
+            </label>
+          </radio-group>
+        </view>
+      </view>
+    </view>
+    <view class='footer_container'>
+      <view class='phone_container'>
+        <!-- <text class='ss'>已优惠￥{{filters.toFix(group.itemPrice - group.groupPrice - -sharegold)}}</text>
+          <text><text class='pp'>￥{{filters.toFix(group.groupPrice - sharegold)}}</text></text> -->
+        <text class='ss'>已优惠￥111</text>
+        <text class='pp'>￥9999999999999</text>
+      </view>
+      <!-- <view class='buy_container' bindtap='navigateToPayResult' wx:if='{{isPay == 1}}' data-index='{{item4_index}}'>支付</view>
+    <view class='buy_container' wx:if='{{isPay == 0}}' data-index='{{item4_index}}'>支付</view> -->
+      <view class='buy_container'>支付</view>
+    </view>
+  </view>
+</view>
